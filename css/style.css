@@ -1,0 +1,67 @@
+html {
+    margin: 0;
+    font-family: Cantarell sans-serif;
+    padding: 0;
+}
+
+header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1; /* Assure que le header soit au-dessus de l'image */
+}
+
+.home-icon {
+    width: 40rem;
+    top: 4rem;
+    left: 4rem;
+    position: absolute;
+    transform: translate(-50%, -50%); /* Centre le texte sur l'image */
+    color: white; /* Changez la couleur pour qu'elle ressorte sur l'image */
+    z-index: 2; /* Assure que le texte soit au-dessus de l'image */
+}
+
+@media screen and (max-width: 1080px) {
+    .home-icon {
+        width: 50%;
+        top :3rem;
+        left:3rem;
+    }
+}
+
+.image-home {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+.menu {
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    top: 2rem;
+    right: 2rem;
+    width: 40rem;
+}
+
+.login-button {
+    padding: 2%;
+    text-decoration: none;
+    border: orange 1px solid;
+    background: orange;
+    color: aliceblue;
+    font-size: 1rem;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.list-button, .program-button  {
+    padding: 2%;
+    text-decoration: none;
+    color: aliceblue;
+    font-size: 1rem;
+}
