@@ -1,0 +1,15 @@
+{
+    "name": "nrv/nancy",
+    "autoload": {
+        "psr-4": {
+            "nrv\\nancy\\": "src/classes/"
+        }
+    },
+    "authors": [
+        {
+            "name": "DorianFenard",
+            "email": "dorian.fenard@gmail.com"
+        }
+    ],
+    "require": {}
+}
