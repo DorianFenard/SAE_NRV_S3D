@@ -38,9 +38,7 @@ class Dispatcher{
                     <link rel="stylesheet" href="./css/style.css">
                     <title>NRV NANCY WOW</title>
                 </head>
-                <body>
                     $html
-                </body>
                 </html>
                 HTML;
     }

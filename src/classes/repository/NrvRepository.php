@@ -1,22 +1,25 @@
 <?php
 
-namespace iutnc\deefy\repository;
+namespace nrv\nancy\repository;
 
 use PDO;
 use PDOException;
 
-class NrvRepository {
+class NrvRepository
+{
     private static $instance = null;
     private static $config;
 
-    public static function setConfig($file) {
+    public static function setConfig($file)
+    {
         self::$config = parse_ini_file($file);
         if (self::$config === false) {
             throw new PDOException("Erreur lors du chargement de la configuration.");
         }
     }
 
-    public static function getInstance() {
+    public static function getInstance()
+    {
         if (self::$instance === null) {
             if (self::$config === null) {
                 throw new PDOException("La configuration de la base de données n'est pas définie.");

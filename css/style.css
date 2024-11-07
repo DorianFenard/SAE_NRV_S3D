@@ -12,6 +12,11 @@ header {
     z-index: 1; /* Assure que le header soit au-dessus de l'images */
 }
 
+body{
+    margin: 0;
+    padding: 0;
+}
+
 .home-icon {
     width: 40rem;
     top: 4rem;
@@ -67,7 +72,9 @@ header {
 }
 
 .login-background {
-    background: rgba(0, 0, 0, 0.73);
+    background: rgba(0, 0, 0, 0.91);
+    margin: 0;
+    width: 100%;
 }
 
 .login-box {
@@ -75,20 +82,57 @@ header {
     flex-direction: row;
     justify-content: center;
     background-image: url("../images/image-home.jpg");
-    margin: 10% auto;
-    height: 40rem;
-    width: 40rem;
+    margin: 5% auto;
+    height: 53rem;
+    width: 98%;
 }
 
 .login-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    border: aliceblue 2px solid;
+    border-radius: 10px;
+    backdrop-filter: blur(15px);
+    height: 30rem;
+    width: 50rem;
+    margin: auto;
 }
 
 #email, #password {
-    margin-bottom: 5%;
+    margin: 0 auto 5%;
     height: 2rem;
     width: 20rem;
+    background: transparent;
+    border: none;
+    border-bottom: white 2px solid;
+    outline: none;
+    font-size: 16px;
+}
 
+#submit-button {
+    background: white;
+    color: black;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1.5rem;
+    border: 2px solid transparent;
+    transition: 0.3s ease;
+    width: 50%;
+    margin: 0 auto;
+}
+
+.login-text {
+    color: aliceblue;
+    margin: 0 auto 5%;
+}
+
+.signup-button {
+    text-decoration: none;
+    font-weight: bolder;
+    color: aliceblue;
+    width: 50%;
+    margin: 2% auto;
+    text-align: right;
 }

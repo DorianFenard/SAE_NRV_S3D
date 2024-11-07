@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace nrv\nancy\action;
 
-use iutnc\deefy\repository\NrvRepository;
+use nrv\nancy\repository\NrvRepository;
 
 class DisplayAllSpectaclesAction extends Action{
     public function execute(): string
