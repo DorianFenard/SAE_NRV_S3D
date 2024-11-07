@@ -4,7 +4,7 @@ namespace nrv\nancy\dispatch;
 
 use nrv\nancy\action\DefaultAction;
 use nrv\nancy\action\DisplayAllSpectaclesAction;
-use nrv\nancy\action\SigninAction;
+use nrv\nancy\action\LoginAction;
 class Dispatcher{
     private string $action;
 
@@ -18,8 +18,8 @@ class Dispatcher{
             case "display-spectacle":
                 $action = new DisplayAllSpectaclesAction();
                 break;
-            case "signin":
-                $action = new SigninAction();
+            case "login":
+                $action = new LoginAction();
                 break;
             default :
                 $action = new DefaultAction();

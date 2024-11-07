@@ -2,7 +2,7 @@
 declare(strict_types=1);
 namespace nrv\nancy\action;
 
-class SigninAction extends Action{
+class LoginAction extends Action{
     public function execute(): string
     {
         if($this->http_method === "GET"){
