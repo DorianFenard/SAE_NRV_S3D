@@ -6,7 +6,19 @@ class DefaultAction extends Action{
     public function execute() : string
     {
         $res = <<<HTML
-        <p>Bienvenue sur NRV</p>
+        <header>
+            <h1 class="home">
+                <a href="?action=default">
+                    <img class="home-icon" src="./image/icone.png" alt="NRV">
+                </a>
+                <div class="menu">
+                    <a class="list-button" href="?action=list">MA LISTE</a>
+                    <a class="program-button" href="?action=program">PROGRAMME</a>
+                    <a class="login-button" href="?action=login">SE CONNECTER</a>               
+                </div>
+            </h1>
+            <img class="image-home" src="./image/image-home.jpg" alt="NRV en folie">
+        </header>
         HTML;
         return $res;
     }
