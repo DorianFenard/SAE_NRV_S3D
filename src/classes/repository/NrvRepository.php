@@ -1,4 +1,6 @@
 <?php
+
+namespace nrv\nancy\repository;
 declare(strict_types=1);
 namespace nrv\nancy\repository;
 
@@ -42,7 +44,7 @@ class NrvRepository {
         $tab[] = "poulet";
         return $tab;
     }
-    
+
     public function getAllLieux() : array{
         $stmt = $this->pdo->prepare("SELECT * FROM lieu");
         $stmt->execute();
