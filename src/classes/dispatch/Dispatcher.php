@@ -3,7 +3,8 @@ declare(strict_types=1);
 namespace nrv\nancy\dispatch;
 
 use nrv\nancy\action\DefaultAction;
-use nrv\nancy\action\DisplaySpectacles;
+use nrv\nancy\action\DisplayAllSpectaclesAction;
+use nrv\nancy\action\SigninAction;
 class Dispatcher{
     private string $action;
 
@@ -15,7 +16,10 @@ class Dispatcher{
         $action = null;
         switch ($this->action){
             case "display-spectacle":
-                $action = new DisplaySpectacles();
+                $action = new DisplayAllSpectaclesAction();
+                break;
+            case "signin":
+                $action = new SigninAction();
                 break;
             default :
                 $action = new DefaultAction();
