@@ -16,6 +16,7 @@ class SigninAction extends Action{
             </form>
             HTML;
         }else{
+
             //TODO
             //Traiter les données
             //Renvoyé le message si auth sinon erreur
