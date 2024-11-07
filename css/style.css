@@ -9,7 +9,7 @@ header {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 1; /* Assure que le header soit au-dessus de l'image */
+    z-index: 1; /* Assure que le header soit au-dessus de l'images */
 }
 
 .home-icon {
@@ -17,9 +17,9 @@ header {
     top: 4rem;
     left: 4rem;
     position: absolute;
-    transform: translate(-50%, -50%); /* Centre le texte sur l'image */
-    color: white; /* Changez la couleur pour qu'elle ressorte sur l'image */
-    z-index: 2; /* Assure que le texte soit au-dessus de l'image */
+    transform: translate(-50%, -50%); /* Centre le texte sur l'images */
+    color: white; /* Changez la couleur pour qu'elle ressorte sur l'images */
+    z-index: 2; /* Assure que le texte soit au-dessus de l'images */
 }
 
 @media screen and (max-width: 1080px) {
@@ -64,4 +64,31 @@ header {
     text-decoration: none;
     color: aliceblue;
     font-size: 1rem;
+}
+
+.login-background {
+    background: rgba(0, 0, 0, 0.73);
+}
+
+.login-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-image: url("../images/image-home.jpg");
+    margin: 10% auto;
+    height: 40rem;
+    width: 40rem;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#email, #password {
+    margin-bottom: 5%;
+    height: 2rem;
+    width: 20rem;
+
 }

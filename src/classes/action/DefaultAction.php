@@ -9,7 +9,7 @@ class DefaultAction extends Action{
         <header>
             <h1 class="home">
                 <a href="?action=default">
-                    <img class="home-icon" src="./image/icone.png" alt="NRV">
+                    <img class="home-icon" src="./images/icone.png" alt="NRV">
                 </a>
                 <div class="menu">
                     <a class="list-button" href="?action=list">MA LISTE</a>
@@ -17,7 +17,7 @@ class DefaultAction extends Action{
                     <a class="login-button" href="?action=login">SE CONNECTER</a>               
                 </div>
             </h1>
-            <img class="image-home" src="./image/image-home.jpg" alt="NRV en folie">
+            <img class="images-home" src="./images/image-home.jpg" alt="NRV en folie">
         </header>
         HTML;
         return $res;
