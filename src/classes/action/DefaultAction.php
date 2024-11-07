@@ -5,7 +5,9 @@ namespace nrv\nancy\action;
 class DefaultAction extends Action{
     public function execute() : string
     {
-        $res = "coucou c'est moi tchoupi";
+        $res = <<<HTML
+        <p>Bienvenue sur NRV</p>
+        HTML;
         return $res;
     }
 }

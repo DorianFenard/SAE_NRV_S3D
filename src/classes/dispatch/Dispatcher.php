@@ -31,6 +31,7 @@ class Dispatcher{
                 <html lang="fr">
                 <head>
                     <meta charset="UTF-8">
+                    <link rel="stylesheet" href="css/style.css">
                     <title>NRV NANCY WOW</title>
                 </head>
                 <body>
