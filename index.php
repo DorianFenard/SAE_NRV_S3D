@@ -8,5 +8,3 @@ use nrv\nancy\repository\NrvRepository;
 
 $dispatcher = new Dispatcher();
 $dispatcher->run();
-
-NrvRepository::setConfig("./config/db_config.ini");

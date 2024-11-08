@@ -26,6 +26,9 @@ class Dispatcher{
             case "creerSoiree":
                 $action = new CreerSoireeAction();
                 break;
+            case "creerSpectacle":
+                $action = new CreerSpectacleAction();
+                break;
             default :
                 $action = new DefaultAction();
                 break;
