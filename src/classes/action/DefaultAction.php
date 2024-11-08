@@ -1,12 +1,13 @@
 <?php
 declare(strict_types=1);
+
 namespace nrv\nancy\action;
 
-class DefaultAction extends Action{
-    public function execute() : string
+class DefaultAction extends Action
+{
+    public function execute(): string
     {
         $res = <<<HTML
-        <body class="home-background">
             <header class="home-header">
                     <a class="home" href="?action=default">
                         <img class="home-icon" src="./images/icone.png" alt="NRV">
@@ -18,7 +19,6 @@ class DefaultAction extends Action{
                     </div>
                 </h1>
             </header>
-        </body>
         HTML;
         return $res;
     }

@@ -8,13 +8,18 @@ use nrv\nancy\exception\AuthnException;
 
 class LoginAction extends Action
 {
+    /**
+     * @throws AuthnException
+     */
     public function execute(): string
     {
+        $res = <<<HTML
+        
+HTML;
         if ($this->http_method === "GET") {
             $res = <<<HTML
-            <body class="login-background">
                 <div class="login-box">
-                    <form class="login-form" method="post" action="?action=signin">
+                    <form class="login-form" method="post" action="?action=login">
                         <h1 class="login-text">CONNEXION</h1>
                         <label for="Mail"></label>
                         <input type="text" id="email" name="email" placeholder="<username>" required>
@@ -24,25 +29,30 @@ class LoginAction extends Action
                         <a class="login-home-button" href="?action=default">retourner à l'acceuil</a>
                     </form>
                 </div>
-            </body>
             HTML;
         } else {
             if (isset($_SESSION['user'])) {
                 unset($_SESSION['user']);
             }
-            $email = $_POST['email'];
-            $password = $_POST['password'];
             try {
+                if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) throw new AuthnException("format incorrect");
+                $email = $_POST['email'];
+                $password = $_POST['password'];
                 if (AuthnProvider::signin($email, $password)) {
                     $_SESSION['user'] = $email;
-                    unset($_SESSION['playlist']);
-                    $res = "<p> Vous vous êtes bien identifié : " . $email . " , bienvenu </p>";
+                    unset($_SESSION['']);
+                    $res .= "<p>Connection approuvée</p>";
                 }
-            } catch (AuthnException $e) {
-                $res = "<p> Vos identifiants sont incorrects </p>";
+            } catch
+            (AuthnException $e) {
+                $res = <<<HTML
+                        <div class="login-error">
+                            <h2 class="login-error-message">Informations incorrectes</h2>
+                            <a class="error-home-button" href="?action=default">retourner à l'acceuil</a>
+                        </div>
+                    HTML;
             }
-
         }
-        return $res . '<a href="?action=default">Retourner a l\'acceuil</a>';
+        return $res;
     }
 }
