@@ -23,6 +23,7 @@ class NrvRepository {
         if (is_null(self::$instance)) {
             self::$instance = new NrvRepository(self::$config);
         }
+        var_dump(self::$config);
         return self::$instance;
     }
     public static function setConfig(string $file) {
@@ -88,5 +89,15 @@ class NrvRepository {
             $res[] = "Y'a rien";
         }
         return $res;
+    }
+
+    public function addSoiree(String $nomSoiree, String $thematique, String $dateS, String $heureSoiree) : void{
+        $stmt = $this->pdo->prepare("INSERT INTO soiree(nom_soiree, thematique, date, horaire_debut) VALUES (?,?,?,?)");
+        $stmt->bindParam(1, $nomSoiree, PDO::PARAM_STR);
+        $stmt->bindParam(2, $thematique, PDO::PARAM_STR);
+        $stmt->bindParam(3, $dateS, PDO::PARAM_STR);
+        $stmt->bindParam(4, $heureSoiree, PDO::PARAM_STR);
+        echo $nomSoiree . " " . $thematique;
+        $stmt->execute();
     }
 }
