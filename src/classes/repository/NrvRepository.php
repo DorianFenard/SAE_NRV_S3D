@@ -113,4 +113,22 @@ class NrvRepository {
         }
         return $res;
     }
+    public function ajouterSpectacle(string $nom, string $description, string $url, string $horaire, string $style): int {
+        $stmt = $this->pdo->prepare("
+            INSERT INTO spectacle (nom_spectacle, description, url_video, horaire_previsionnel, style)
+            VALUES (:nom, :description, :url, :horaire, :style)
+        ");
+        $stmt->bindParam(':nom', $nom);
+        $stmt->bindParam(':description', $description);
+        $stmt->bindParam(':url', $url);
+        $stmt->bindParam(':horaire', $horaire);
+        $stmt->bindParam(':style', $style);
+
+        $stmt->execute();
+
+        return (int) $this->pdo->lastInsertId();
+    }
+
+
+
 }
