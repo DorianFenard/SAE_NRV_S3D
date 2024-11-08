@@ -1,6 +1,4 @@
 <?php
-
-namespace nrv\nancy\repository;
 declare(strict_types=1);
 namespace nrv\nancy\repository;
 

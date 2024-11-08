@@ -5,14 +5,19 @@ namespace nrv\nancy\render;
 
 use nrv\nancy\festival\Spectacle;
 
-class SpectacleRenderer {
-    public static function render(Spectacle $spectacle): string {
+class SpectacleRenderer implements Renderer {
+    private Spectacle $spectacle;
+
+    public function __construct(Spectacle $spectacle) {
+        $this->spectacle = $spectacle;
+    }
+    public function render(): string {
         $html = "<div class='spectacle'>";
-        $html .= "<h2>" . htmlspecialchars($spectacle->titre) . "</h2>";     
+        $html .= "<h2>" . htmlspecialchars($this->spectacle->titre) . "</h2>";
         
-        $html .= "<p>Artistes : " . implode(", ", $spectacle->artistes) . "</p>";
+        $html .= "<p>Artistes : " . implode(", ", $this->spectacle->artistes) . "</p>";
         
-        $html .= "<p>Description : " . htmlspecialchars($spectacle->description) . "</p>";
+        $html .= "<p>Description : " . htmlspecialchars($this->spectacle->description) . "</p>";
         
         if (!empty($spectacle->images)) {
             $html .= "<div class='images'>";
