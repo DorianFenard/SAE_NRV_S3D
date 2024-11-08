@@ -19,6 +19,7 @@ class SpectacleRenderer implements Renderer {
             foreach ($this->spectacle->artistes as $artiste) {
                 $html .= $artiste->nom . ", ";
             }
+            $html = substr($html, 0, -2);
             $html.= "</p>";
         
         
