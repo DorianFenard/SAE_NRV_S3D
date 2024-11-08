@@ -38,9 +38,25 @@ class NrvRepository {
         self::$config = [ 'dsn'=> $dsn,'user'=> $conf['username'],'pass'=> $conf['password']];
     }
 
-    public function getAllSpectacles() : array{
-        $tab[] = "poulet";
-        return $tab;
+    public function getAllSoiree(){
+        $stmt = $this->pdo->prepare("Select * from soiree");
+        $stmt->execute();
+        $fetch = $stmt->fetchAll();
+        return $fetch;
+    }
+
+    public function getAllSpectacle(){
+        $stmt = $this->pdo->prepare("Select * from spectacle");
+        $stmt->execute();
+        $fetch = $stmt->fetchAll();
+        return $fetch;
+    }
+
+    public function getSpectacleSoiree(int $idSoiree){
+        $stmt = $this->pdo->prepare("Select nom_spectacle,style,description,horaire_previsionnel,url_video from spectacle inner join soiree2spectacle on spectacle.id_spectacle = soiree2spectacle.id_spectacle where id_soiree = ? ORDER by horaire_previsionnel");
+        $stmt->execute([$idSoiree]);
+        $fetch = $stmt->fetchAll();
+        return $fetch;
     }
 
     public function getAllLieux() : array{
