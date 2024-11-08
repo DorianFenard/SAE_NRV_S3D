@@ -76,9 +76,8 @@ class NrvRepository {
         return $fetch;
     }
 
-    public function getArtisteSpectacle(int $idspectacle)
-    {
-        $stmt = $this->pdo->prepare("Select artiste.id_artiste,nom_artiste from spectacle2artiste inner join artiste on spectacle2artiste.id_artiste=artiste.id_artiste where id_spectacle = ?");;
+    public function getArtisteSpectacle(int $idspectacle) {
+        $stmt = $this->pdo->prepare("SELECT artiste.id_artiste, nom_artiste FROM spectacle2artiste INNER JOIN artiste ON spectacle2artiste.id_artiste = artiste.id_artiste WHERE id_spectacle = ?");
         $stmt->execute([$idspectacle]);
         $fetch = $stmt->fetchAll();
         return $fetch;

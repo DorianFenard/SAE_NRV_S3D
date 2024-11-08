@@ -44,7 +44,7 @@ class DisplayAllSpectaclesAction extends Action{
                    $resArtistes = $bd->getArtisteSpectacle(intval($spectacle['id_spectacle']));
 
                    foreach ($resArtistes as $artiste){
-                       $objArtiste = new Artiste(intval($artiste['id_artiste']),$artiste['nom_artiste']);
+                       $objArtiste = new Artiste(intval($artiste['id_artiste']),(string)$artiste['nom_artiste']);
                        $artistes[] = $objArtiste;
                    }
 

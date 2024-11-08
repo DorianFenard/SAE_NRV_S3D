@@ -14,8 +14,13 @@ class SpectacleRenderer implements Renderer {
     public function render(): string {
         $html = "<div class='spectacle'>";
         $html .= "<h2>" .$this->spectacle->titre . "</h2>";
+
+            $html .= "<p>Artistes : ";
+            foreach ($this->spectacle->artistes as $artiste) {
+                $html .= $artiste->nom . ", ";
+            }
+            $html.= "</p>";
         
-        $html .= "<p>Artistes : " . ", ". $this->spectacle->artistes . "</p>";
         
         $html .= "<p>Description : " . $this->spectacle->description . "</p>";
         

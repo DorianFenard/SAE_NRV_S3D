@@ -11,4 +11,7 @@ class Artiste
      $this->id = $id;
      $this->nom = $nom;
  }
+ public function __get($name){
+     return $this->$name;
+ }
 }
