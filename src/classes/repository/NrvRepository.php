@@ -23,7 +23,6 @@ class NrvRepository {
         if (is_null(self::$instance)) {
             self::$instance = new NrvRepository(self::$config);
         }
-        var_dump(self::$config);
         return self::$instance;
     }
     public static function setConfig(string $file) {
@@ -54,12 +53,36 @@ class NrvRepository {
     }
 
     public function getSpectacleSoiree(int $idSoiree){
-        $stmt = $this->pdo->prepare("Select nom_spectacle,style,description,horaire_previsionnel,url_video from spectacle inner join soiree2spectacle on spectacle.id_spectacle = soiree2spectacle.id_spectacle where id_soiree = ? ORDER by horaire_previsionnel");
+        $stmt = $this->pdo->prepare("Select spectacle.id_spectacle,nom_spectacle,style,description,horaire_previsionnel,url_video from spectacle inner join soiree2spectacle on spectacle.id_spectacle = soiree2spectacle.id_spectacle where id_soiree = ? ORDER by horaire_previsionnel");
         $stmt->execute([$idSoiree]);
         $fetch = $stmt->fetchAll();
         return $fetch;
     }
 
+    public function getLieuId(int $idsoiree){
+        $stmt = $this->pdo->prepare("Select id_lieu from soiree2lieu where id_soiree = ?");
+        $stmt->execute([$idsoiree]);
+        $fetch = $stmt->fetch();
+        if($fetch){
+            return $fetch;
+        }
+        return 0;
+    }
+
+    public function getImagesSpectacle(int $idspectacle){
+        $stmt = $this->pdo->prepare("Select image.id_image,nom_image from spectacle2images inner join image on spectacle2images.id_image=image.id_image where id_spectacle = ? ");
+        $stmt->execute([$idspectacle]);
+        $fetch = $stmt->fetchAll();
+        return $fetch;
+    }
+
+    public function getArtisteSpectacle(int $idspectacle)
+    {
+        $stmt = $this->pdo->prepare("Select artiste.id_artiste,nom_artiste from spectacle2artiste inner join artiste on spectacle2artiste.id_artiste=artiste.id_artiste where id_spectacle = ?");;
+        $stmt->execute([$idspectacle]);
+        $fetch = $stmt->fetchAll();
+        return $fetch;
+    }
     public function getAllLieux() : array{
         $stmt = $this->pdo->prepare("SELECT * FROM lieu");
         $stmt->execute();
@@ -100,4 +123,22 @@ class NrvRepository {
         echo $nomSoiree . " " . $thematique;
         $stmt->execute();
     }
+    public function ajouterSpectacle(string $nom, string $description, string $url, string $horaire, string $style): int {
+        $stmt = $this->pdo->prepare("
+            INSERT INTO spectacle (nom_spectacle, description, url_video, horaire_previsionnel, style)
+            VALUES (:nom, :description, :url, :horaire, :style)
+        ");
+        $stmt->bindParam(':nom', $nom);
+        $stmt->bindParam(':description', $description);
+        $stmt->bindParam(':url', $url);
+        $stmt->bindParam(':horaire', $horaire);
+        $stmt->bindParam(':style', $style);
+
+        $stmt->execute();
+
+        return (int) $this->pdo->lastInsertId();
+    }
+
+
+
 }

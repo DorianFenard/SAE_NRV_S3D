@@ -14,7 +14,7 @@ class Soiree {
     private int $lieuId; 
     private array $spectacles; 
 
-    public function __construct(int $id, string $nom, string $thematique, string $date, string $horaireDebut, int $lieuId) {
+    public function __construct(int $id,string $nom, string $thematique, string $date, string $horaireDebut, int $lieuId) {
         $this->id = $id;
         $this->nom = $nom;
         $this->thematique = $thematique;

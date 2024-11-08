@@ -13,26 +13,26 @@ class SpectacleRenderer implements Renderer {
     }
     public function render(): string {
         $html = "<div class='spectacle'>";
-        $html .= "<h2>" . htmlspecialchars($this->spectacle->titre) . "</h2>";
+        $html .= "<h2>" .$this->spectacle->titre . "</h2>";
         
-        $html .= "<p>Artistes : " . implode(", ", $this->spectacle->artistes) . "</p>";
+        $html .= "<p>Artistes : " . ", ". $this->spectacle->artistes . "</p>";
         
-        $html .= "<p>Description : " . htmlspecialchars($this->spectacle->description) . "</p>";
+        $html .= "<p>Description : " . $this->spectacle->description . "</p>";
         
         if (!empty($this->spectacle->images)) {
             $html .= "<div class='images'>";
             foreach ($this->spectacle->images as $image) {
-                $html .= "<img src='" . htmlspecialchars($image) . "' alt='Image du spectacle'>";
+                $html .= "<img src='" .$image . "' alt='Image du spectacle'>";
             }
             $html .= "</div>";
         }
         
         if ($this->spectacle->urlVideo) {
-            $html .= "<p>Vidéo : <a href='" . htmlspecialchars($this->spectacle->urlVideo) . "'>Voir la vidéo</a></p>";
+            $html .= "<p>Vidéo : <a href='" .$this->spectacle->urlVideo . "'>Voir la vidéo</a></p>";
         }
         
-        $html .= "<p>Horaire prévisionnel : " . htmlspecialchars($this->spectacle->horairePrevisionnel) . "</p>";
-        $html .= "<p>Style : " . htmlspecialchars($this->spectacle->style) . "</p>";
+        $html .= "<p>Horaire prévisionnel : " . $this->spectacle->horairePrevisionnel . "</p>";
+        $html .= "<p>Style : " . $this->spectacle->style . "</p>";
         
         $html .= "<p>État : " . ($this->spectacle->estAnnule ? "Annulé" : "Prévu") . "</p>";
         
