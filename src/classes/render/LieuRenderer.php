@@ -3,13 +3,21 @@ declare(strict_types=1);
 
 namespace nrv\nancy\render;
 
-class LieuRenderer {
-    public static function render($lieu) {
+use nrv\nancy\festival\Lieu;
+
+class LieuRenderer implements Renderer{
+
+    private Lieu $lieu;
+
+    public function __construct(Lieu $lieu){
+        $this->lieu = $lieu;
+    }
+    public function render() : string {
         $html = "<div class='lieu'>";
-        $html .= "<h2>" . $lieu->nom . "</h2>";     
-        $html .= "<p>" . $lieu->adresse . "</p>";   
-        $html .= "<p>Places assises : " . $lieu->placesAssises . "</p>";
-        $html .= "<p>Places debout : " . $lieu->placesDebout . "</p>";
+        $html .= "<h2>" . $this->lieu->nom . "</h2>";
+        $html .= "<p>" . $this->adresse . "</p>";
+        $html .= "<p>Places assises : " . $this->lieu->placesAssises . "</p>";
+        $html .= "<p>Places debout : " . $this->lieu->placesDebout . "</p>";
    
 
         $html .= "</div>";
