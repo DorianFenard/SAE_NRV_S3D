@@ -11,4 +11,12 @@ class Image
         $this->nom=$nom;
         $this->id = $id;
     }
+
+    public function __get(string $property) {
+        if (property_exists($this, $property)) {
+            return $this->$property;
+        } else {
+            throw new \Exception("Property '{$property}' does not exist in class " . __CLASS__);
+        }
+    }
 }
