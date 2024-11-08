@@ -48,8 +48,8 @@ class NrvRepository {
         $stmt->execute();
         $result = $stmt->fetchAll();
         foreach ($result as $lieu) {
-            $images = $this->getAllImageFromLieu((int) $lieu['id_lieu']);
-            $res[] = new Lieu((int) $lieu['id_lieu'], $lieu['nom_lieu'], $lieu['adresse'], (int) $lieu['places_assises'], (int) $lieu['places_debout'], $images);
+            $images = $this->getAllImageFromLieu(intval($lieu['id_lieu']));
+            $res[] = new Lieu(intval($lieu['id_lieu']), $lieu['nom_lieu'], $lieu['adresse'], intval($lieu['id_lieu']), intval($lieu['id_lieu']), $images);
         }
         return $res;
     }
