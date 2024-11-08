@@ -13,13 +13,13 @@ use nrv\nancy\festival\Spectacle;
 use nrv\nancy\render\Renderer;
 
 class RendererFactory{
-    public static function getRenderer(Renderer $objRendu) : Renderer{
+    public static function getRenderer(mixed $objRendu) : Renderer{
         if($objRendu instanceof Lieu){
-            $renderer = new LieuRenderer();
+            $renderer = new LieuRenderer($objRendu);
         }else if($objRendu instanceof Soiree){
-            $renderer = new SoireeRenderer();
+            $renderer = new SoireeRenderer($objRendu);
         }else if($objRendu instanceof Spectacle){
-            $renderer = new SpectacleRenderer();
+            $renderer = new SpectacleRenderer($objRendu);
         }else{
             $renderer = null;
         }
