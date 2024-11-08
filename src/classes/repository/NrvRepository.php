@@ -39,8 +39,11 @@ class NrvRepository {
     }
 
     public function getAllSpectacles() : array{
-        $tab[] = "poulet";
-        return $tab;
+        $stmt = $this->pdo->prepare("SELECT * FROM spectacles");
+    }
+
+    public function getAllSoiree() : array{
+
     }
 
     public function getAllLieux() : array{

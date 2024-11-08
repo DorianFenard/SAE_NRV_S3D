@@ -9,6 +9,4 @@ use nrv\nancy\repository\NrvRepository;
 $dispatcher = new Dispatcher();
 $dispatcher->run();
 
-$pdo = NrvRepository::setConfig("./config/db_config.ini");
-$pdo = NrvRepository::getInstance();
-$lieux = $pdo->getAllLieux();
+NrvRepository::setConfig("./config/db_config.ini");

@@ -2,6 +2,8 @@
 declare(strict_types=1);
 namespace nrv\nancy\dispatch;
 
+use nrv\nancy\action\CreerSoireeAction;
+use nrv\nancy\action\CreerSpectacleAction;
 use nrv\nancy\action\DefaultAction;
 use nrv\nancy\action\DisplayAllSpectaclesAction;
 use nrv\nancy\action\LoginAction;
@@ -20,6 +22,9 @@ class Dispatcher{
                 break;
             case "login":
                 $action = new LoginAction();
+                break;
+            case "creerSoiree":
+                $action = new CreerSoireeAction();
                 break;
             default :
                 $action = new DefaultAction();

@@ -14,7 +14,7 @@ class DefaultAction extends Action{
                     </a>
                     <div class="menu">
                         <a class="list-button" href="?action=list">MA LISTE</a>
-                        <a class="program-button" href="?action=program">PROGRAMME</a>
+                        <a class="program-button" href="?action=display-spectacle">PROGRAMME</a>
                         <a class="login-button" href="?action=login">SE CONNECTER</a>               
                     </div>
                 </h1>
