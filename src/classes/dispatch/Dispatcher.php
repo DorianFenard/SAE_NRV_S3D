@@ -1,5 +1,6 @@
 <?php
 declare(strict_types=1);
+
 namespace nrv\nancy\dispatch;
 
 use nrv\nancy\action\CreerSoireeAction;
@@ -7,16 +8,20 @@ use nrv\nancy\action\CreerSpectacleAction;
 use nrv\nancy\action\DefaultAction;
 use nrv\nancy\action\DisplayAllSpectaclesAction;
 use nrv\nancy\action\LoginAction;
-class Dispatcher{
+
+class Dispatcher
+{
     private string $action;
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->action = $_GET['action'] ?? 'default';
     }
 
-    public function run(){
+    public function run()
+    {
         $action = null;
-        switch ($this->action){
+        switch ($this->action) {
             case "program":
                 $action = new DisplayAllSpectaclesAction();
                 break;
@@ -37,7 +42,8 @@ class Dispatcher{
         $this->renderPage($html);
     }
 
-    private function renderPage(string $html){
+    private function renderPage(string $html)
+    {
         echo <<<HTML
                 <!DOCTYPE html>
                 <html lang="fr">
