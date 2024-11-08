@@ -21,7 +21,7 @@ class LoginAction extends Action
                         <label for="password"></label>
                         <input type="password" id="password" name="password" placeholder="<password>" required>
                         <input type="submit" value="Se connecter" id="submit-button">
-                        <a class="signup-button" href="?action=signup">créer un compte</a>
+                        <a class="login-home-button" href="?action=default">retourner à l'acceuil</a>
                     </form>
                 </div>
             </body>

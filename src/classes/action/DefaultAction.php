@@ -7,9 +7,8 @@ class DefaultAction extends Action{
     {
         $res = <<<HTML
         <body class="home-background">
-            <header>
-                <h1 class="home">
-                    <a href="?action=default">
+            <header class="home-header">
+                    <a class="home" href="?action=default">
                         <img class="home-icon" src="./images/icone.png" alt="NRV">
                     </a>
                     <div class="menu">
@@ -18,7 +17,6 @@ class DefaultAction extends Action{
                         <a class="login-button" href="?action=login">SE CONNECTER</a>               
                     </div>
                 </h1>
-                <img class="images-home" src="./images/image-home.jpg" alt="NRV en folie">
             </header>
         </body>
         HTML;

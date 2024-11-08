@@ -2,23 +2,22 @@
 declare(strict_types=1);
 namespace nrv\nancy\action;
 
-use nrv\nancy\render\RendererFactory;
 use nrv\nancy\repository\NrvRepository;
-use nrv\nancy\festival\Spectacle;
 
 class DisplayAllSpectaclesAction extends Action{
     public function execute(): string
     {
-
-        $pdo = NrvRepository::setConfig("./config/db_config.ini");
-        $pdo = NrvRepository::getInstance();
-        $specs = $pdo->getAllSpectacles();
-        $res = "<p>Programme complet : </p> <br>";
-        foreach($specs as $spec){
-            $spec = New Spe
-            $renderer = RendererFactory::getRenderer($spec);
-            $res .= $renderer->render();
+        if($this->http_method === "GET"){
+           $bd =NrvRepository::getInstance();
+           $res = $bd->getAllSoiree();
+           foreach ($res as $soiree){
+               var_dump($soiree);
+               $resspectacle = $bd->getSpectacleSoiree(intval($soiree['id_soiree']));
+               foreach ($resspectacle as $spectacle){
+                   var_dump($spectacle);
+               }
+           }
         }
-        return $res;
+        return "";
     }
 }

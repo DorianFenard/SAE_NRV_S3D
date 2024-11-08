@@ -17,7 +17,7 @@ class Dispatcher{
     public function run(){
         $action = null;
         switch ($this->action){
-            case "display-spectacle":
+            case "program":
                 $action = new DisplayAllSpectaclesAction();
                 break;
             case "login":
