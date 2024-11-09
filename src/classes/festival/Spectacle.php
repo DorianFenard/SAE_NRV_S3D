@@ -15,7 +15,7 @@ class Spectacle
     private string $style;
     private bool $estAnnule;
 
-    public function __construct(int $id, string $titre, array $artistes, string $description, array $images, ?string $urlVideo, string $horairePrevisionnel, string $style, bool$estAnnule)
+    public function __construct(int $id, string $titre, array $artistes, string $description, array $images, ?string $urlVideo, string $horairePrevisionnel, string $style, bool $estAnnule)
     {
         if(isset($url)){
             $url ="";

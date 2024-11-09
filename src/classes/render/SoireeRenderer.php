@@ -17,12 +17,12 @@ class SoireeRenderer implements Renderer {
         $html .= "<p>Thème : " . $this->soiree->thematique . "</p>";
         $html .= "<p>Date de la soirée : " . $this->soiree->date . "</p>";
         $html .= "<p>Horaire de début : " . $this->soiree->horaireDebut . "</p>";
-        $html .= "<p>Lieu de la soirée : " .  $this->soiree->lieuId . "</p>";
+        $html .= "<p>Lieu de la soirée : " .  $this->soiree->lieu->nom . "</p>";
         
         $html .= "<p>Spectacles :</p>";
         $html .= "<ul>";
         foreach($this->soiree->spectacles as $spectacle) {
-            $render = new SpectacleRenderer($spectacle);
+            $render = RendererFactory::getRenderer($spectacle);
             $html .= "<li>" . $render->render() . "</li>";
         }
         $html .= "</ul>";

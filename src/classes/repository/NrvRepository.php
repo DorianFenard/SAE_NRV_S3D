@@ -2,6 +2,8 @@
 declare(strict_types=1);
 namespace nrv\nancy\repository;
 
+use nrv\nancy\festival\Artiste;
+use nrv\nancy\festival\Image;
 use PDO;
 use PDOException;
 use Exception;
@@ -38,49 +40,77 @@ class NrvRepository {
         self::$config = [ 'dsn'=> $dsn,'user'=> $conf['username'],'pass'=> $conf['password']];
     }
 
-    public function getAllSoiree(){
+    public function getAllSoiree() : array{
         $stmt = $this->pdo->prepare("Select * from soiree");
         $stmt->execute();
         $fetch = $stmt->fetchAll();
-        return $fetch;
+        foreach ($fetch as $soiree){
+            $lieu = $this->getLieuId((int) $soiree['id_soiree']);
+            $spectacles = $this->getSpectacleSoiree((int) $soiree['id_soiree']);
+            $array[] = new Soiree((int) $soiree['id_soiree'], $soiree['nom_soiree'], $soiree['thematique'], $soiree['date'], $soiree['horaire_debut'], $lieu,
+            $spectacles);
+        }
+        return $array;
     }
 
-    public function getAllSpectacle(){
+    public function getAllSpectacle() : array{
         $stmt = $this->pdo->prepare("Select * from spectacle");
         $stmt->execute();
         $fetch = $stmt->fetchAll();
-        return $fetch;
+        foreach ($fetch as $spectacle){
+            $images = $this->getImagesSpectacle((int) $spectacle['id_spectacle']);
+            $artistes = $this->getArtisteSpectacle((int) $spectacle['id_spectacle']);
+            $array[] = new Spectacle((int) $spectacle['id_spectacle'], $spectacle['nom_spectacle'], $artistes,
+                $spectacle['description'], $images, $spectacle['url_video'], $spectacle['horaire_previsionnel'],
+                $spectacle['style'], boolval($spectacle['est_annule']) );
+        }
+        return $array;
     }
 
-    public function getSpectacleSoiree(int $idSoiree){
-        $stmt = $this->pdo->prepare("Select spectacle.id_spectacle,nom_spectacle,style,description,horaire_previsionnel,url_video from spectacle inner join soiree2spectacle on spectacle.id_spectacle = soiree2spectacle.id_spectacle where id_soiree = ? ORDER by horaire_previsionnel");
+    public function getSpectacleSoiree(int $idSoiree) : array{
+        $stmt = $this->pdo->prepare("Select spectacle.id_spectacle,nom_spectacle,style,description,horaire_previsionnel,url_video,est_annule from spectacle inner join soiree2spectacle on spectacle.id_spectacle = soiree2spectacle.id_spectacle where id_soiree = ? ORDER by horaire_previsionnel");
         $stmt->execute([$idSoiree]);
         $fetch = $stmt->fetchAll();
-        return $fetch;
-    }
-
-    public function getLieuId(int $idsoiree){
-        $stmt = $this->pdo->prepare("Select id_lieu from soiree2lieu where id_soiree = ?");
-        $stmt->execute([$idsoiree]);
-        $fetch = $stmt->fetch();
-        if($fetch){
-            return $fetch;
+        foreach ($fetch as $spec){
+            $images = $this->getImagesSpectacle((int) $spec['id_spectacle']);
+            $artistes = $this->getArtisteSpectacle((int) $spec['id_spectacle']);
+            $array[] = new Spectacle((int) $spec['id_spectacle'], $spec['nom_spectacle'], $artistes,
+                $spec['description'], $images, $spec['url_video'], $spec['horaire_previsionnel'],
+                $spec['style'], boolval($spec['est_annule']) );
         }
-        return 0;
+        return $array;
     }
 
-    public function getImagesSpectacle(int $idspectacle){
+    public function getLieuId(int $idsoiree) : Lieu{
+        $stmt = $this->pdo->prepare("Select * from Lieu INNER JOIN soiree2lieu ON lieu.id_lieu = soiree2lieu.id_lieu where id_soiree = ?");
+        $stmt->bindParam(1, $idsoiree);
+        $stmt->execute();
+        $lieu = $stmt->fetch();
+        $images = $this->getAllImageFromLieu((int) $lieu['id_lieu']);
+        return new Lieu((int) $lieu['id_lieu'], $lieu['nom_lieu'], $lieu['adresse'], (int) $lieu['places_assises'],
+            (int) $lieu['places_debout'], $images);
+    }
+
+    public function getImagesSpectacle(int $idspectacle) : array{
         $stmt = $this->pdo->prepare("Select image.id_image,nom_image from spectacle2images inner join image on spectacle2images.id_image=image.id_image where id_spectacle = ? ");
+        $stmt->bindParam(1, $idspectacle);
         $stmt->execute([$idspectacle]);
         $fetch = $stmt->fetchAll();
-        return $fetch;
+        foreach ($fetch as $image){
+            $array[] = new Image((int) $image['id_image'], $image['nom_image']);
+        }
+        return $array;
     }
 
-    public function getArtisteSpectacle(int $idspectacle) {
+    public function getArtisteSpectacle(int $idspectacle) : array{
         $stmt = $this->pdo->prepare("SELECT artiste.id_artiste, nom_artiste FROM spectacle2artiste INNER JOIN artiste ON spectacle2artiste.id_artiste = artiste.id_artiste WHERE id_spectacle = ?");
-        $stmt->execute([$idspectacle]);
+        $stmt->bindParam(1,$idspectacle);
+        $stmt->execute();
         $fetch = $stmt->fetchAll();
-        return $fetch;
+        foreach ($fetch as $artiste){
+            $array[] = new Artiste((int) $artiste['id_artiste'], $artiste['nom_artiste']);
+        }
+        return $array;
     }
     public function getAllLieux() : array{
         $stmt = $this->pdo->prepare("SELECT * FROM lieu");
@@ -104,13 +134,10 @@ class NrvRepository {
 
         $result = $stmt->fetchAll();
 
-        foreach ($result as $ligne) {
-            $res[] = $ligne['nom_image'];
+        foreach ($result as $img) {
+            $array[] = new Image((int) $img['id_image'], $img['nom_image']);
         }
-        if(empty($result)){
-            $res[] = "Y'a rien";
-        }
-        return $res;
+        return $array;
     }
 
     public function addSoiree(String $nomSoiree, String $thematique, String $dateS, String $heureSoiree) : void{
