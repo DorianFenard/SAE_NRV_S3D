@@ -39,11 +39,18 @@ HTML;
                 if (!filter_var($_POST["email"], FILTER_VALIDATE_EMAIL)) throw new AuthnException("format incorrect");
                 $email = $_POST['email'];
                 $password = $_POST['password'];
+
                 if (AuthnProvider::signin($email, $password)) {
                     $_SESSION['user'] = $email;
 
                     $pdo = NrvRepository::getInstance();
-                    $_SESSION['role'] = $pdo->getRoleByUser($email);
+                    $role = intval($pdo->getRoleByUser($email));
+
+                    if ($role === 100) {
+                        $_SESSION['role'] = 100;
+                    } else {
+                        $_SESSION['role'] = $role;
+                    }
 
                     header("Location: index.php?action=default");
                     exit;
