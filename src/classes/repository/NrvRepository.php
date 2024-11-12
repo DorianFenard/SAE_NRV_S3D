@@ -205,4 +205,19 @@ class NrvRepository {
         $result = $stmt->fetch();
         return $result['role'];
     }
+
+    public function userAlreadyExisting(string $email) : bool{
+        $stmt = $this->pdo->prepare("SELECT COUNT(*) as exist FROM user WHERE email = ?");
+        $stmt->bindParam(1, $email);
+        $stmt->execute();
+        $res = $stmt->fetch();
+        return ((int) $res['exist']) > 0 ;
+    }
+
+    public function addNewUser(string $email, string $pass) {
+        $stmt = $this->pdo->prepare("INSERT INTO user(password_hash, email, role) VALUES (?, ?, 50)");
+        $stmt->bindParam(1, $pass);
+        $stmt->bindParam(2, $email);
+        $stmt->execute();
+    }
 }

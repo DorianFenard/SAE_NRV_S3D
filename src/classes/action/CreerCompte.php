@@ -12,21 +12,36 @@ class CreerCompte extends Action{
         try{
             AuthnProvider::getSignedInUser();
             if(isset($_SESSION['role']) && $_SESSION['role'] === 100){
-                $res = <<<HTML
-        <form method="POST" action="?action=creerCompte">
-            <label for="email">Entrez l'email :</label>
-            <input type="texte" id="email" name="email" placeholder="email" required>
-            <br>
-            <label for="password">Entrez le mot de passe :</label>
-            <input type="password"  id="password" name="password" placeholder="password" required>
-            <br>
-            <label for="passwordverif">Entrez le mot de passe :</label>
-            <input type="password" id="password" name="passwordverif" placeholder="Vérifier password" required>
-            <br>
-            <input type="submit" value="Créer compte">
-        </form>
-HTML;
-
+                if($this->http_method === "GET"){
+                    $res = <<<HTML
+                        <form method="POST" action="?action=creerCompte">
+                            <label for="email">Entrez l'email :</label>
+                            <input type="texte" id="email" name="email" placeholder="email" required>
+                            <br>
+                            <label for="password">Entrez le mot de passe :</label>
+                            <input type="password"  id="password" name="password" placeholder="password" required>
+                            <br>
+                            <label for="passwordverif">Entrez le mot de passe :</label>
+                            <input type="password" id="password" name="passwordverif" placeholder="Vérifier password" required>
+                            <br>
+                            <input type="submit" value="Créer compte">
+                        </form>
+                    HTML;
+                }else{
+                    $email = $_POST['email'];
+                    $password = $_POST['password'];
+                    $password2 = $_POST['passwordverif'];
+                    if($password != $password2){
+                        $res = "<p> Le mot de passe choisi ne correspondait pas</p>";
+                    }else{
+                        try{
+                            AuthnProvider::register($email, $password);
+                            $res = "<p> Création du compte réussie </p>";
+                        }catch (AuthnException $e) {
+                            $res = "<p>" . $e->getMessage() . "</p>";
+                        }
+                    }
+                }
             }
         }catch (AuthnException $e){
             $res = "<p> Vous n'avez pas l'autorisation requise</p>";

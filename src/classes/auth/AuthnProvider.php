@@ -34,6 +34,7 @@ class AuthnProvider
         if (AuthnProvider::checkPasswordStrength($password, 10)) {
             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $pdo = NrvRepository::getInstance();
+
                 if (!$pdo->userAlreadyExisting($email)) {
                     $hashedPassword = password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);
                     $pdo->addNewUser($email, $hashedPassword);
