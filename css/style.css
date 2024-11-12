@@ -46,8 +46,12 @@ body{
     left: 0;
     width: 100%;
     height: 150px;
-    background-color: hotpink;
+    background-color: black;
     margin-bottom: 25px;
+}
+
+a{
+    color: aqua;
 }
 @media screen and (max-width: 1080px) {
     .home-icon {
@@ -79,8 +83,8 @@ body{
 .login-button {
     padding: 2%;
     text-decoration: none;
-    border: #9e14d2 1px solid;
-    background: #9e14d2 ;
+    border: #012323 1px solid;
+    background: #045353;
     color: aliceblue;
     font-size: 1rem;
     border-radius: 10px;
@@ -268,7 +272,7 @@ body{
     display: flex;
     flex-wrap: wrap;
     width: calc(100% - 10px);
-    justify-content: center; /* Centre horizontalement */
+    justify-content: center;
     align-items: center;
 }
 .spectacles-favoris >div{
@@ -287,8 +291,28 @@ body{
     background-color: darkgrey;
 }
 
-.soiree_spectacle{
+.soiree_spectacle {
+    display: flex;
+    justify-content: center;
+}
 
+.soiree_spectacle > .soiree > .soireespectacles {
+    display: flex;
+    flex-wrap: wrap;
+    width: calc(100% - 10px);
+    justify-content: center;
+    align-items: center;
+}
+
+.soiree_spectacle > .soiree > .soireespectacles >.spectacle{
+    display: flex;
+    flex-direction: column;
+    border: 2px solid white;
+    border-radius: 10px;
+    margin: 10px;
+    height: auto;
+    width: min-content;
+    padding: 10px;
 }
 
 .UnSpectacle{
