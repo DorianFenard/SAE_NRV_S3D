@@ -69,7 +69,7 @@ body{
     text-align: center;
 }
 
-.list-button, .program-button  {
+.list-button, .program-button, .admin-button{
     padding: 2%;
     text-decoration: none;
     color: aliceblue;

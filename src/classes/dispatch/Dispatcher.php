@@ -13,6 +13,7 @@ use nrv\nancy\action\DisplaySoireeAction;
 use nrv\nancy\action\LoginAction;
 use nrv\nancy\action\FavorisAction;
 use nrv\nancy\action\LogoutAction;
+use nrv\nancy\action\MenuAdmin;
 
 class Dispatcher
 {
@@ -53,6 +54,9 @@ class Dispatcher
                 break;
             case "soiree":
                 $action = new DisplaySoireeAction();
+                break;
+            case "adminpage":
+                $action = new MenuAdmin();
                 break;
             default :
                 $action = new DefaultAction();

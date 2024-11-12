@@ -23,6 +23,7 @@ class DefaultAction extends Action
                 <div class="menu">
                     <a class="list-button" href="?action=list">MA LISTE</a>
                     <a class="program-button" href="?action=program">PROGRAMME</a>
+                    <a class="admin-button" href="?action=adminpage">ADMIN</a>
                     $loginButton
                 </div>
             </header>
