@@ -10,6 +10,20 @@ class DisplayAllSpectaclesAction extends Action
 {
     public function execute(): string
     {
+        setlocale(LC_TIME, 'fr_FR.UTF-8', 'fr_FR', 'fr');
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        // Gestion de l'ajout aux favoris
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['spectacle_id'])) {
+            $spectacleId = (int) $_POST['spectacle_id'];
+            $_SESSION['favorites'] = $_SESSION['favorites'] ?? [];
+            if (!in_array($spectacleId, $_SESSION['favorites'], true)) {
+                $_SESSION['favorites'][] = $spectacleId;
+            }
+        }
+
 
         $repo = NrvRepository::getInstance();
         $soirees = $repo->getAllSoiree();
@@ -25,21 +39,23 @@ class DisplayAllSpectaclesAction extends Action
             }
         }
 
-        $output = '<div class="filters">';
-        $output .= '<h3>Filtrer par date</h3><ul>';
+        // Générer les filtres
+        $html = '<div class="filters">';
+        $html .= '<h3>Filtrer par date</h3><ul>';
         foreach ($dates as $dateValue => $dateDisplay) {
-            $output .= '<li><a href="index.php?action=program&filter=date&value=' . urlencode($dateValue) . '">' . htmlspecialchars($dateDisplay) . '</a></li>';
+            $html .= '<li><a href="index.php?action=program&filter=date&value=' . urlencode($dateValue) . '">' . htmlspecialchars($dateDisplay) . '</a></li>';
         }
-        $output .= '</ul><h3>Filtrer par lieu</h3><ul>';
+        $html .= '</ul><h3>Filtrer par lieu</h3><ul>';
         foreach ($lieux as $lieu) {
-            $output .= '<li><a href="index.php?action=program&filter=lieu&value=' . urlencode($lieu) . '">' . htmlspecialchars($lieu) . '</a></li>';
+            $html .= '<li><a href="index.php?action=program&filter=lieu&value=' . urlencode($lieu) . '">' . htmlspecialchars($lieu) . '</a></li>';
         }
-        $output .= '</ul><h3>Filtrer par genre</h3><ul>';
+        $html .= '</ul><h3>Filtrer par genre</h3><ul>';
         foreach ($genres as $genre) {
-            $output .= '<li><a href="index.php?action=program&filter=genre&value=' . urlencode($genre) . '">' . htmlspecialchars($genre) . '</a></li>';
+            $html .= '<li><a href="index.php?action=program&filter=genre&value=' . urlencode($genre) . '">' . htmlspecialchars($genre) . '</a></li>';
         }
-        $output .= '</ul></div>';
+        $html .= '</ul></div>';
 
+        // Application des filtres
         $filterType = $_GET['filter'] ?? null;
         $filterValue = $_GET['value'] ?? null;
 
@@ -60,21 +76,31 @@ class DisplayAllSpectaclesAction extends Action
             $filteredSoirees = $soirees;
         }
 
-        $output .= '<div class="spectacles">';
-        $output .= implode('', array_map(function ($soiree) {
+        // Rendu des spectacles
+        $html .= '<div class="spectacles">';
+        $html .= implode('', array_map(function ($soiree) {
             $dateFormatted = strftime('%A %d %B %Y', strtotime($soiree->date));
 
             $lieuRenderer = RendererFactory::getRenderer($soiree->lieu)->render();
             $dateRenderer = "<h3>Date : $dateFormatted</h3>";
-            $spectaclesRenderer = implode('', array_map(
-                fn($spectacle) => RendererFactory::getRenderer($spectacle)->render(),
-                $soiree->spectacles
-            ));
+            $spectaclesRenderer = implode('', array_map(function ($spectacle) {
+
+                //Vérifie si le spectacle est déjà en favoris
+                $isFavorite = in_array($spectacle->id, $_SESSION['favorites'] ?? [], true);
+                //Indique si déjà en favoris ou permet de l'ajouter
+                $favoriteButton = $isFavorite ? '<p>Déjà en favoris</p>' :
+                    '<form method="POST" action="">
+                        <input type="hidden" name="spectacle_id" value="' . htmlspecialchars((string)$spectacle->id) . '">
+                        <button type="submit">Ajouter aux favoris</button>
+                    </form>';
+
+                return RendererFactory::getRenderer($spectacle)->render() . $favoriteButton;
+            }, $soiree->spectacles));
 
             return $dateRenderer . $lieuRenderer . $spectaclesRenderer;
         }, $filteredSoirees));
-        $output .= '</div>';
+        $html .= '</div>';
 
-        return $output;
+        return $html;
     }
 }
