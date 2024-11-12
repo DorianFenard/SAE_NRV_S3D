@@ -6,8 +6,8 @@ class LogoutAction
 {
     public function execute(): string
     {
-        session_start();
         session_destroy();
+        session_start();
         header('Location: ?action=default');
         return "";
     }
