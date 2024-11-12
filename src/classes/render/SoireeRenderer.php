@@ -18,14 +18,14 @@ class SoireeRenderer implements Renderer {
         $html .= "<p>Date de la soirée : " . $this->soiree->date . "</p>";
         $html .= "<p>Horaire de début : " . $this->soiree->horaireDebut . "</p>";
         $html .= "<p>Lieu de la soirée : " .  $this->soiree->lieu->nom . "</p>";
-        
+        $html .= "<p>Tarif de la soirée : ".$this->soiree->tarif . "</p>";
         $html .= "<p>Spectacles :</p>";
-        $html .= "<ul>";
+        $html .= "<div class='spectacles'>";
         foreach($this->soiree->spectacles as $spectacle) {
             $render = RendererFactory::getRenderer($spectacle);
-            $html .= "<li>" . $render->render() . "</li>";
+            $html .=  $render->render() ;
         }
-        $html .= "</ul>";
+        $html .= "</div>";
         
         $html .= "</div>";
         return $html;

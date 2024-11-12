@@ -20,6 +20,7 @@ class NrvRepository {
     private function __construct(array $conf) {
         $this->pdo = new \PDO($conf['dsn'], $conf['user'], $conf['pass'],
             [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION]);
+        $this->pdo->exec("SET NAMES 'utf8'");
     }
     public static function getInstance(){
         if (is_null(self::$instance)) {
@@ -48,7 +49,7 @@ class NrvRepository {
             $lieu = $this->getLieuId((int) $soiree['id_soiree']);
             $spectacles = $this->getSpectacleSoiree((int) $soiree['id_soiree']);
             $array[] = new Soiree((int) $soiree['id_soiree'], $soiree['nom_soiree'], $soiree['thematique'], $soiree['date'], $soiree['horaire_debut'], $lieu,
-            $spectacles);
+            $spectacles,intval($soiree['tarif']));
         }
         return $array;
     }
@@ -62,13 +63,13 @@ class NrvRepository {
             $artistes = $this->getArtisteSpectacle((int) $spectacle['id_spectacle']);
             $array[] = new Spectacle((int) $spectacle['id_spectacle'], $spectacle['nom_spectacle'], $artistes,
                 $spectacle['description'], $images, $spectacle['url_video'], $spectacle['horaire_previsionnel'],
-                $spectacle['style'], boolval($spectacle['est_annule']) );
+                $spectacle['style'], boolval($spectacle['est_annule']),intval($spectacle['duree']) );
         }
         return $array;
     }
 
     public function getSpectacleSoiree(int $idSoiree) : array{
-        $stmt = $this->pdo->prepare("Select spectacle.id_spectacle,nom_spectacle,style,description,horaire_previsionnel,url_video,est_annule from spectacle inner join soiree2spectacle on spectacle.id_spectacle = soiree2spectacle.id_spectacle where id_soiree = ? ORDER by horaire_previsionnel");
+        $stmt = $this->pdo->prepare("Select spectacle.id_spectacle,nom_spectacle,style,description,horaire_previsionnel,url_video,est_annule,duree from spectacle inner join soiree2spectacle on spectacle.id_spectacle = soiree2spectacle.id_spectacle where id_soiree = ? ORDER by horaire_previsionnel");
         $stmt->execute([$idSoiree]);
         $fetch = $stmt->fetchAll();
         foreach ($fetch as $spec){
@@ -76,9 +77,18 @@ class NrvRepository {
             $artistes = $this->getArtisteSpectacle((int) $spec['id_spectacle']);
             $array[] = new Spectacle((int) $spec['id_spectacle'], $spec['nom_spectacle'], $artistes,
                 $spec['description'], $images, $spec['url_video'], $spec['horaire_previsionnel'],
-                $spec['style'], boolval($spec['est_annule']) );
+                $spec['style'], boolval($spec['est_annule']),intval($spec['duree']));
         }
         return $array;
+    }
+    public function getSoireeSpectacle(int $idspectacle){
+        $stmt = $this->pdo->prepare("Select soiree.id_soiree,nom_soiree,thematique,date,horaire_debut,tarif from soiree2spectacle inner join soiree on soiree2spectacle.id_soiree = soiree.id_soiree where id_spectacle = ? ;");
+        $stmt->execute([$idspectacle]);
+        $fetch = $stmt->fetch();
+        $lieu = $this->getLieuId((intval($fetch['id_soiree'])));
+        $spectacles = $this->getSpectacleSoiree(intval($fetch['id_soiree']));
+        $soiree = new Soiree(intval($fetch['id_soiree']),$fetch['nom_soiree'],$fetch['thematique'],$fetch['date'],$fetch['horaire_debut'],$lieu,$spectacles,intval($fetch['tarif']));
+        return $soiree;
     }
 
     public function getLieuId(int $idsoiree) : Lieu{
