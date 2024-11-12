@@ -4,6 +4,7 @@ namespace nrv\nancy\action;
 
 use nrv\nancy\exception\AuthnException;
 use nrv\nancy\repository\NrvRepository;
+use nrv\nancy\auth\AuthnProvider;
 
 class CreerSpectacleAction extends Action {
     public function execute(): string {

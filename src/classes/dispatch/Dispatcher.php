@@ -14,6 +14,7 @@ use nrv\nancy\action\LoginAction;
 use nrv\nancy\action\FavorisAction;
 use nrv\nancy\action\LogoutAction;
 use nrv\nancy\action\MenuAdmin;
+use nrv\nancy\action\CreerCompte;
 
 class Dispatcher
 {
@@ -59,7 +60,7 @@ class Dispatcher
                 $action = new MenuAdmin();
                 break;
             case "creerCompte":
-                $action = new creeCompte();
+                $action = new CreerCompte();
                 break;
             default :
                 $action = new DefaultAction();
