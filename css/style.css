@@ -215,6 +215,7 @@ body{
 .filters div ul{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: 30px;
     list-style: none;
 }
