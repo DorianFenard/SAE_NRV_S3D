@@ -38,19 +38,20 @@ class DisplayAllSpectaclesAction extends Action
         }
 
         $html = '<div class="filters">';
-        $html .= '<h3>Filtrer par date</h3><ul>';
+        $html .= ' <input type="checkbox" id="toggleButtonDate" class="toggle-button"> <button>Filtrer par date</button> <input type="checkbox" id="toggleButtonLieu" class="toggle-button"> <button>Filtrer par lieu</button> <input type="checkbox" id="toggleButtonGenre" class="toggle-button"> <button>Filtrer par genre</button>  <div class ="filtersDate"><ul>';
+
         foreach ($dates as $dateValue => $dateDisplay) {
-            $html .= '<li><a href="index.php?action=program&filter=date&value=' . urlencode($dateValue) . '">' . htmlspecialchars($dateDisplay) . '</a></li>';
+            $html .= '<li><a href="index.php?action=program&filter=date&value=' . urlencode($dateValue) . '">' . '<button class="filtersbutton">'. $dateValue .'</button>'. '</a></li>';
         }
-        $html .= '</ul><h3>Filtrer par lieu</h3><ul>';
+        $html .= '</ul></div><div class ="filtersLieu"><ul>';
         foreach ($lieux as $lieu) {
-            $html .= '<li><a href="index.php?action=program&filter=lieu&value=' . urlencode($lieu) . '">' . htmlspecialchars($lieu) . '</a></li>';
+            $html .= '<li><a href="index.php?action=program&filter=lieu&value=' . urlencode($lieu) . '">' .'<button class="filtersbutton">' . htmlspecialchars($lieu).'</button>' . '</a></li>';
         }
-        $html .= '</ul><h3>Filtrer par genre</h3><ul>';
+        $html .= '</ul></div><div class ="filtersGenre"><ul>';
         foreach ($genres as $genre) {
-            $html .= '<li><a href="index.php?action=program&filter=genre&value=' . urlencode($genre) . '">' . htmlspecialchars($genre) . '</a></li>';
+            $html .= '<li><a href="index.php?action=program&filter=genre&value=' . urlencode($genre) . '">' .'<button class="filtersbutton">'. htmlspecialchars($genre).'</button>' . '</a></li>';
         }
-        $html .= '</ul></div>';
+        $html .= '</ul></div></div>';
 
         // Application des filtres
         $filterType = $_GET['filter'] ?? null;
