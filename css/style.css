@@ -26,9 +26,9 @@ body{
     top: 4rem;
     left: 4rem;
     position: absolute;
-    transform: translate(-50%, -50%);
-    color: white;
-    z-index: 2;
+    transform: translate(-50%, -50%); /* Centre le texte sur l'images */
+    color: white; /* Changez la couleur pour qu'elle ressorte sur l'images */
+    z-index: 2; /* Assure que le texte soit au-dessus de l'images */
 }
 
 @media screen and (max-width: 1080px) {
