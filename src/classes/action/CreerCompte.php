@@ -30,9 +30,9 @@ class CreerCompte extends Action{
             if(isset($_SESSION['role']) && $_SESSION['role'] === 100){
                 if($this->http_method === "GET"){
                     $res = <<<HTML
-                    <div class="create-acc-box">
-                        <form class="create-acc-form" method="POST" action="?action=creerCompte">
-                            <h1 class="create-acc-text">CONNEXION</h1>
+                    <div class="admin-box">
+                        <form class="admin-form" method="POST" action="?action=creerCompte">
+                            <h1 class="admin-text">CREATION</h1>
                             <label for="email"></label>
                             <input type="texte" id="email" name="email" placeholder="email" required>
                             <br>

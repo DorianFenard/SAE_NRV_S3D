@@ -48,11 +48,14 @@ class AddSpec2SoireeAction extends Action
                 $selecSoir .= "</select>";
 
                 $res = <<<HTML
-                <form method="post" action="?action=addSpec2Soiree">
+                <div class="admin-box">
+                <form class="admin-form" method="post" action="?action=addSpec2Soiree">
+                <h1 class="admin-text">Association Soirée/Spectacle</h1>
                 $selecSpec
                 $selecSoir
                 <input type="submit" value="Ajouter spectacle" name="ajouterSpec">
                 </form>
+                </div>
                 HTML;
             } else {
                 $soiree = $_POST['selecSoiree'];

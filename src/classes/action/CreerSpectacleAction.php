@@ -28,7 +28,9 @@ class CreerSpectacleAction extends Action {
             AuthnProvider::getSignedInUser();
             if ($this->http_method === "GET") {
                 $res = <<<HTML
-            <form action="?action=creerSpectacle" method="post">
+            <div class="admin-box">
+            <form class="admin-form" action="?action=creerSpectacle" method="post">
+            <h1 class="admin-text"> Création d'un spectacle</h1>;
                 <label for="nom">Nom</label>
                 <input type="text" name="nom" id="nom" required>
 
@@ -46,6 +48,7 @@ class CreerSpectacleAction extends Action {
 
                 <input type="submit" value="Créer Spectacle">
             </form>
+            </div>
             HTML;
 
             } else {

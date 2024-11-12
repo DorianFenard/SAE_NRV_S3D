@@ -30,18 +30,20 @@ class AnnulerSpectacleAction extends Action {
             AuthnProvider::getSignedInUser();
             if($this->http_method == "GET"){
                 $listeSpec = NrvRepository::getInstance()->getAllSpectacle();
-                $res = "<p>Liste des spectacles : <br></p>";
+                $res = " <div class='admin-box'><div class='admin-form'><h1 class='admin-text'>Liste des spectacles : <br></h1>";
                 foreach($listeSpec as $spec){
                     $annulation = ($spec->estAnnule ?? true) ? "Oui" : "Non";
                     $res .= <<<HTML
-                <form method="POST" action="?action=annulerSpec">
-                    <p>$spec->titre annulé : $annulation</p>
-                    <input type="hidden" name="specChoisi" value="$spec->id">
-                    <input type="hidden" name="annulation" value="$annulation">
-                    <input type="submit" value="Changer">
-                </form>
+                     <form method="POST" action="?action=annulerSpec">
+                        <p>$spec->titre annulé : $annulation</p>
+                        <input type="hidden" name="specChoisi" value="$spec->id">
+                        <input type="hidden" name="annulation" value="$annulation">
+                        <input type="submit" value="Changer">
+                    </form>
+                
                 HTML;
                 }
+                $res .= "</div></div>";
             }else{
                 $idSpec = $_POST['specChoisi'];
                 $annulation = $_POST['annulation'];

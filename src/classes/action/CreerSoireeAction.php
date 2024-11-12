@@ -29,13 +29,16 @@ class CreerSoireeAction extends Action{
             AuthnProvider::getSignedInUser();
             if($this->http_method == "GET"){
                 $res = <<<HTML
-                <form action="?action=creerSoiree" method="post">
+                <div class="admin-box">
+                <form class="admin-form" action="?action=creerSoiree" method="post">
+                <h1 class="admin-text">Création d'une soirée</h1>
                     <input type="text" name="nomSoiree" placeholder="Nom soirée" required>
                     <input type="text" name="themeSoiree" placeholder="Thématique" required>
                     <input type="date" name="dateSoiree" required>
                     <input type="time" name="heureSoiree" required>
                     <input type="submit" value="Créer soirée" name="creerSoiree">
                 </form>
+                </div>
                 HTML;
 
             }else{
