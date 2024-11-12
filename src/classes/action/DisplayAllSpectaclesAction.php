@@ -37,8 +37,18 @@ class DisplayAllSpectaclesAction extends Action
             }
         }
 
-        $html = '<div class="filters">';
-        $html .= ' <input type="checkbox" id="toggleButtonDate" class="toggle-button"> <button>Filtrer par date</button> <input type="checkbox" id="toggleButtonLieu" class="toggle-button"> <button>Filtrer par lieu</button> <input type="checkbox" id="toggleButtonGenre" class="toggle-button"> <button>Filtrer par genre</button>  <div class ="filtersDate"><ul>';
+        $html = '<header class="program-header"><a class="home" href="?action=default">
+                        <img class="program-icon" src="./images/icone.png" alt="NRV">
+                    </a> <div class="menu">
+                        <a class="list-button" href="?action=list">MA LISTE</a>
+                        <a class="program-button" href="?action=program">PROGRAMME</a>
+                        <a class="login-button" href="?action=login">SE CONNECTER</a>               
+                    </div>
+                    </header>
+                    <div class="filters">';
+        $html .= '
+  <input type="checkbox" id="toggleButtonDate" class="toggle-button">
+   <button>Filtrer par date</button> <input type="checkbox" id="toggleButtonLieu" class="toggle-button"> <button>Filtrer par lieu</button> <input type="checkbox" id="toggleButtonGenre" class="toggle-button"> <button>Filtrer par genre</button>  <div class ="filtersDate"><ul>';
 
         foreach ($dates as $dateValue => $dateDisplay) {
             $html .= '<li><a href="index.php?action=program&filter=date&value=' . urlencode($dateValue) . '">' . '<button class="filtersbutton">'. $dateValue .'</button>'. '</a></li>';
@@ -78,13 +88,11 @@ class DisplayAllSpectaclesAction extends Action
         $html .= implode('', array_map(function ($soiree) {
             $dateFormatted = strftime('%A %d %B %Y', strtotime($soiree->date));
 
-            $dateRenderer = "<h3>Date : <a href='index.php?action=program&filter=date&value=" . urlencode($soiree->date) . "'>$dateFormatted</a></h3>";
+            $dateRenderer = "<div class ='UnSpectacle'><h3>Date : <a href='index.php?action=program&filter=date&value=" . urlencode($soiree->date) . "'>$dateFormatted</a></h3>";
             $lieuRenderer = RendererFactory::getRenderer($soiree->lieu)->render();
-
             $spectaclesRenderer = implode('', array_map(function ($spectacle) {
                 $favorites = unserialize($_COOKIE['favorites'] ?? 'a:0:{}');
                 $isFavorite = in_array($spectacle->id, $favorites ?? [], true);
-
                 $favoriteButton = $isFavorite ? '<p>Déjà en favoris</p>' :
                     '<form method="POST" action="">
                         <input type="hidden" name="spectacle_id" value="' . htmlspecialchars((string)$spectacle->id) . '">
@@ -93,9 +101,8 @@ class DisplayAllSpectaclesAction extends Action
 
                 $genreLink = "<a href='index.php?action=program&filter=genre&value=" . urlencode($spectacle->style) . "'>" . htmlspecialchars($spectacle->style) . "</a>";
 
-                $redirection = "<a href='index.php?action=soiree&idspectacle=$spectacle->id'>Voir les autres spectacles de cette soirée</a>";
 
-                return RendererFactory::getRenderer($spectacle)->render() . "<p>Genre : $genreLink</p>" . $favoriteButton . $redirection;
+                return RendererFactory::getRenderer($spectacle)->render() . "<p>Genre : $genreLink</p>" . $favoriteButton . "</div> </a>" ;
             }, $soiree->spectacles));
 
             return $dateRenderer . $lieuRenderer . $spectaclesRenderer;

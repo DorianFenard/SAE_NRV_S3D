@@ -22,15 +22,33 @@ body{
 }
 
 .home-icon {
-    width: 40rem;
+    width: 30rem;
     top: 4rem;
     left: 4rem;
     position: absolute;
     transform: translate(-50%, -50%); /* Centre le texte sur l'images */
     color: white; /* Changez la couleur pour qu'elle ressorte sur l'images */
-    z-index: 2; /* Assure que le texte soit au-dessus de l'images */
+    z-index: 1; /* Assure que le texte soit au-dessus de l'images */
+}
+.program-icon{
+        width: 0px;
+        top: 4rem;
+        left: 4rem;
+        position: relative;
+        transform: translate(-50%, -50%);/* Centre le texte sur l'images */
+        color: white; /* Changez la couleur pour qu'elle ressorte sur l'images */
+        z-index: 1; /* Assure que le texte soit au-dessus de l'images */
 }
 
+.program-header{
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    background-color: hotpink;
+    margin-bottom: 25px;
+}
 @media screen and (max-width: 1080px) {
     .home-icon {
         width: 50%;
@@ -182,7 +200,7 @@ body{
     background: black;
     font-size: 30px;
     border-radius: 10px;
-    width: 20%;
+    width: auto;
     height: 50px;
     transition: background-color 0.5s ease;
     gap: 10px;
@@ -244,4 +262,27 @@ body{
 #toggleButtonGenre:checked ~ .filtersLieu {
     display: none;
 }
+.spectacles{
+    display: flex;
+    flex-wrap: wrap;
+    width: calc(100% - 10px);
+    justify-content: center; /* Centre horizontalement */
+    align-items: center;
+}
 
+.UnSpectacle{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid white;
+    border-radius: 10px;
+    margin: 10px;
+    height: auto;
+    width: min-content;
+    padding: 10px;
+}
+
+.UnSpectacle:hover{
+    background-color: darkgrey;
+}

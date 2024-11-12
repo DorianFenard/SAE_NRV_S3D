@@ -8,7 +8,7 @@ class DefaultAction extends Action
     public function execute(): string
     {
         $res = <<<HTML
-            <header class="home-header">
+             <header class="home-header">
                     <a class="home" href="?action=default">
                         <img class="home-icon" src="./images/icone.png" alt="NRV">
                     </a>
@@ -18,7 +18,7 @@ class DefaultAction extends Action
                         <a class="login-button" href="?action=login">SE CONNECTER</a>               
                     </div>
                 </h1>
-            </header>
+                </header>
         HTML;
         return $res;
     }
