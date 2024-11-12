@@ -5,6 +5,7 @@ namespace nrv\nancy\action;
 
 use nrv\nancy\auth\AuthnProvider;
 use nrv\nancy\exception\AuthnException;
+use nrv\nancy\repository\NrvRepository;
 
 class LoginAction extends Action
 {
@@ -26,7 +27,7 @@ HTML;
                         <label for="password"></label>
                         <input type="password" id="password" name="password" placeholder="<password>" required>
                         <input type="submit" value="Se connecter" id="submit-button">
-                        <a class="login-home-button" href="?action=default">retourner à l'acceuil</a>
+                        <a class="login-home-button" href="?action=default">retourner à l'accueil</a>
                     </form>
                 </div>
             HTML;
@@ -40,15 +41,18 @@ HTML;
                 $password = $_POST['password'];
                 if (AuthnProvider::signin($email, $password)) {
                     $_SESSION['user'] = $email;
-                    unset($_SESSION['']);
-                    $res .= "<p>Connection approuvée</p>";
+
+                    $pdo = NrvRepository::getInstance();
+                    $_SESSION['role'] = $pdo->getRoleByUser($email);
+
+                    header("Location: index.php?action=default");
+                    exit;
                 }
-            } catch
-            (AuthnException $e) {
+            } catch (AuthnException $e) {
                 $res = <<<HTML
                         <div class="login-error">
                             <h2 class="login-error-message">Informations incorrectes</h2>
-                            <a class="error-home-button" href="?action=default">retourner à l'acceuil</a>
+                            <a class="error-home-button" href="?action=default">retourner à l'accueil</a>
                         </div>
                     HTML;
             }
