@@ -94,7 +94,7 @@ body{
     font-size: 1rem;
 }
 
-.login-box {
+.login-box, .create-acc-box {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -104,7 +104,7 @@ body{
     width: 98%;
 }
 
-.login-form {
+.login-form, .create-acc-form {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -141,12 +141,12 @@ body{
     margin: 0 auto;
 }
 
-.login-text {
+.login-text, .create-acc-text {
     color: aliceblue;
     margin: 0 auto 5%;
 }
 
-.login-home-button {
+.login-home-button, .create-acc-home-button {
     text-decoration: none;
     font-weight: bolder;
     color: aliceblue;

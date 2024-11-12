@@ -14,18 +14,23 @@ class CreerCompte extends Action{
             if(isset($_SESSION['role']) && $_SESSION['role'] === 100){
                 if($this->http_method === "GET"){
                     $res = <<<HTML
-                        <form method="POST" action="?action=creerCompte">
-                            <label for="email">Entrez l'email :</label>
+                    <div class="create-acc-box">
+                        <form class="create-acc-form" method="POST" action="?action=creerCompte">
+                            <h1 class="create-acc-text">CONNEXION</h1>
+                            <label for="email"></label>
                             <input type="texte" id="email" name="email" placeholder="email" required>
                             <br>
-                            <label for="password">Entrez le mot de passe :</label>
+                            <label for="password"></label>
                             <input type="password"  id="password" name="password" placeholder="password" required>
                             <br>
-                            <label for="passwordverif">Entrez le mot de passe :</label>
+                            <label for="passwordverif"></label>
                             <input type="password" id="password" name="passwordverif" placeholder="Vérifier password" required>
                             <br>
-                            <input type="submit" value="Créer compte">
-                        </form>
+                            <input type="submit"  id="submit-button" value="Créer compte">
+                             <a class="create-acc-home-button" href="?action=default">retourner à l'accueil</a>
+                        </form>             
+                    </div>
+                        
                     HTML;
                 }else{
                     $email = $_POST['email'];
