@@ -10,7 +10,6 @@ class DisplayAllSpectaclesAction extends Action
 {
     public function execute(): string
     {
-
         $repo = NrvRepository::getInstance();
         $soirees = $repo->getAllSoiree();
 
