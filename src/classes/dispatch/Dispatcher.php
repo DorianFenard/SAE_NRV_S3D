@@ -12,6 +12,9 @@ use nrv\nancy\action\DisplayAllSpectaclesAction;
 use nrv\nancy\action\DisplaySoireeAction;
 use nrv\nancy\action\LoginAction;
 use nrv\nancy\action\FavorisAction;
+use nrv\nancy\action\LogoutAction;
+use nrv\nancy\action\MenuAdmin;
+use nrv\nancy\action\CreerCompte;
 
 class Dispatcher
 {
@@ -32,6 +35,9 @@ class Dispatcher
             case "login":
                 $action = new LoginAction();
                 break;
+            case "logout":
+                $action = new LogoutAction();
+                break;
             case "creerSoiree":
                 $action = new CreerSoireeAction();
                 break;
@@ -49,6 +55,12 @@ class Dispatcher
                 break;
             case "soiree":
                 $action = new DisplaySoireeAction();
+                break;
+            case "adminpage":
+                $action = new MenuAdmin();
+                break;
+            case "creerCompte":
+                $action = new CreerCompte();
                 break;
             default :
                 $action = new DefaultAction();
