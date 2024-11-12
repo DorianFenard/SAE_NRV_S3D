@@ -17,31 +17,34 @@ class DisplayAllSpectaclesAction extends Action{
     {
         $string ='<nav class ="filtre" >
                 <ul class ="buttonfiltre">
-                <li><a href="index.php?action=program&trier=date"><button >Lieu</button></a></li>
-                <li><a href="index.php?action=program&trier=lieu"><button >Date</button></a></li>
+                <li><a href="index.php?action=program&trier=lieu"><button >Lieu</button></a></li>
+                <li><a href="index.php?action=program&trier=date"><button >Date</button></a></li>
                 <li><button>Genre</button></li>
                 </ul>
             </nav>';
         if($this->http_method === "GET"){
            $bd =NrvRepository::getInstance();
-           $resSpectacle = $bd->getAllSpectacle();
-//           if(isset($_GET['trier'])){
-//               $criteres = $_GET['trier'];
-//               switch ($criteres){
-//                   case "date":
-//                       usort($resSoiree, function ($a, $b) {
-//                           return strtotime($a->date) - strtotime($b->date);
-//                       });
-//                       break;
-//                   case "lieu":
-//                       usort($resSoiree, function ($a, $b) {
-//                           return strcmp($a->date, $b->thematique);
-//                       });
-//                       break;
-//               }
-//           }
-           foreach ($resSpectacle as $spectacle){
-               $string .= RendererFactory::getRenderer($spectacle)->render();
+           $resSoiree = $bd->getAllSoiree();
+           $resSpectacle = [];
+            foreach ($resSoiree as $soiree){
+                $resSpectacle = array_merge($resSpectacle, $soiree->spectacles);
+            }
+           if(isset($_GET['trier'])){
+               $criteres = $_GET['trier'];
+               switch ($criteres){
+                   case "lieu":
+                       usort($resSoiree, function ($a, $b) {
+                           return strcmp($a->lieu, $b->lieu);
+                       });
+                       break;
+               }
+           }
+           foreach ($resSoiree as $soiree){
+               $lieu = $soiree->lieu;
+               foreach ($resSpectacle as $spectacle){
+                   $string .=RendererFactory::getRenderer($lieu)->render();
+                   $string .= RendererFactory::getRenderer($spectacle)->render();
+               }
            }
         }
         return $string;

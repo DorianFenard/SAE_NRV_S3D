@@ -15,7 +15,7 @@ class LieuRenderer implements Renderer{
     public function render() : string {
         $html = "<div class='lieu'>";
         $html .= "<h2>" . $this->lieu->nom . "</h2>";
-        $html .= "<p>" . $this->adresse . "</p>";
+        $html .= "<p>" . $this->lieu->adresse . "</p>";
         $html .= "<p>Places assises : " . $this->lieu->placesAssises . "</p>";
         $html .= "<p>Places debout : " . $this->lieu->placesDebout . "</p>";
    
