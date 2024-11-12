@@ -10,8 +10,7 @@ class FavorisAction extends Action
 {
     public function execute(): string
     {
-
-        $favoriteIds = $_SESSION['favorites'] ?? [];
+        $favoriteIds = isset($_COOKIE['favorites']) ? unserialize($_COOKIE['favorites']) : [];
 
         $html = '<h2>Mes Spectacles Favoris</h2>';
 
@@ -22,6 +21,7 @@ class FavorisAction extends Action
 
         $repo = NrvRepository::getInstance();
         $allSpectacles = $repo->getAllSpectacle();
+
         $favoriteSpectacles = array_filter($allSpectacles, fn($spectacle) => in_array($spectacle->id, $favoriteIds, true));
 
         $html .= '<div class="spectacles-favoris">';
