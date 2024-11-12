@@ -31,22 +31,22 @@ class CreerSpectacleAction extends Action {
             <div class="admin-box">
             <form class="admin-form" action="?action=creerSpectacle" method="post">
             <h1 class="admin-text"> Création d'un spectacle</h1>;
-                <label for="nom">Nom</label>
-                <input type="text" name="nom" id="nom" required>
+                <label class="admin-element" for="nom">Nom</label>
+                <input class="admin-element" type="text" name="nom" id="nom" required>
 
-                <label for="description">Description</label>
-                <input type="text" name="description" id="description" required>
+                <label class="admin-element" for="description">Description</label>
+                <input class="admin-element" type="text" name="description" id="description" required>
 
-                <label for="url">URL vidéo</label>
-                <input type="url" name="url" id="url" required>
+                <label class="admin-element" for="url">URL vidéo</label>
+                <input class="admin-element" type="url" name="url" id="url" required>
 
-                <label for="horaire">Horaire prévisionnel</label>
-                <input type="time" name="horaire" id="horaire" required>
+                <label class="admin-element" for="horaire">Horaire prévisionnel</label>
+                <input class="admin-element" type="time" name="horaire" id="horaire" required>
 
-                <label for="style">Style</label>
-                <input type="text" name="style" id="style" required>
+                <label class="admin-element" for="style">Style</label>
+                <input class="admin-element" type="text" name="style" id="style" required>
 
-                <input type="submit" value="Créer Spectacle">
+                <input class="admin-element" type="submit" value="Créer Spectacle">
             </form>
             </div>
             HTML;

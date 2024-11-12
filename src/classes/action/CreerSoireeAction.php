@@ -32,11 +32,11 @@ class CreerSoireeAction extends Action{
                 <div class="admin-box">
                 <form class="admin-form" action="?action=creerSoiree" method="post">
                 <h1 class="admin-text">Création d'une soirée</h1>
-                    <input type="text" name="nomSoiree" placeholder="Nom soirée" required>
-                    <input type="text" name="themeSoiree" placeholder="Thématique" required>
-                    <input type="date" name="dateSoiree" required>
-                    <input type="time" name="heureSoiree" required>
-                    <input type="submit" value="Créer soirée" name="creerSoiree">
+                    <input class="admin-element" type="text" name="nomSoiree" placeholder="Nom soirée" required>
+                    <input class="admin-element" type="text" name="themeSoiree" placeholder="Thématique" required>
+                    <input class="admin-element" type="date" name="dateSoiree" required>
+                    <input class="admin-element" type="time" name="heureSoiree" required>
+                    <input class="admin-element" type="submit" value="Créer soirée" name="creerSoiree">
                 </form>
                 </div>
                 HTML;

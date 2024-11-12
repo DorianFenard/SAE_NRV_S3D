@@ -35,10 +35,10 @@ class AnnulerSpectacleAction extends Action {
                     $annulation = ($spec->estAnnule ?? true) ? "Oui" : "Non";
                     $res .= <<<HTML
                      <form method="POST" action="?action=annulerSpec">
-                        <p>$spec->titre annulé : $annulation</p>
-                        <input type="hidden" name="specChoisi" value="$spec->id">
-                        <input type="hidden" name="annulation" value="$annulation">
-                        <input type="submit" value="Changer">
+                        <p class="admin-element">$spec->titre annulé : $annulation</p>
+                        <input class="admin-element" type="hidden" name="specChoisi" value="$spec->id">
+                        <input class="admin-element" type="hidden" name="annulation" value="$annulation">
+                        <input class="admin-element" type="submit" value="Changer">
                     </form>
                 
                 HTML;

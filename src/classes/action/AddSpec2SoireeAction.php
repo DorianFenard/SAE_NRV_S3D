@@ -33,14 +33,14 @@ class AddSpec2SoireeAction extends Action
         try {
             AuthnProvider::getSignedInUser();
             if ($this->http_method == "GET") {
-                $selecSpec = "<select name='selecSpec' id='selecSpec'>";
+                $selecSpec = "<select class='admin-element' name='selecSpec' id='selecSpec'>";
                 $listeSpec = NrvRepository::getInstance()->getAllSpectacle();
                 foreach ($listeSpec as $spec) {
                     $selecSpec .= "<option value='" . $spec->id . "'>" . $spec->titre . "</option>";
                 }
                 $selecSpec .= "</select>";
 
-                $selecSoir = "<select name='selecSoiree' id='selecSoiree'>";
+                $selecSoir = "<select class='admin-element' name='selecSoiree' id='selecSoiree'>";
                 $listeSoir = NrvRepository::getInstance()->getAllSoiree();
                 foreach ($listeSoir as $soiree) {
                     $selecSoir .= "<option value='" . $soiree->id . "'>" . $soiree->nom . "</option>";
@@ -53,7 +53,7 @@ class AddSpec2SoireeAction extends Action
                 <h1 class="admin-text">Association Soirée/Spectacle</h1>
                 $selecSpec
                 $selecSoir
-                <input type="submit" value="Ajouter spectacle" name="ajouterSpec">
+                <input class="admin-element" ttype="submit" value="Ajouter spectacle" name="ajouterSpec">
                 </form>
                 </div>
                 HTML;
