@@ -38,19 +38,20 @@ class DisplayAllSpectaclesAction extends Action
         }
 
         $html = '<div class="filters">';
-        $html .= '<h3>Filtrer par date</h3><ul>';
+        $html .= ' <input type="checkbox" id="toggleButtonDate" class="toggle-button"> <button>Filtrer par date</button> <input type="checkbox" id="toggleButtonLieu" class="toggle-button"> <button>Filtrer par lieu</button> <input type="checkbox" id="toggleButtonGenre" class="toggle-button"> <button>Filtrer par genre</button>  <div class ="filtersDate"><ul>';
+
         foreach ($dates as $dateValue => $dateDisplay) {
-            $html .= '<li><a href="index.php?action=program&filter=date&value=' . urlencode($dateValue) . '">' . htmlspecialchars($dateDisplay) . '</a></li>';
+            $html .= '<li><a href="index.php?action=program&filter=date&value=' . urlencode($dateValue) . '">' . '<button class="filtersbutton">'. $dateValue .'</button>'. '</a></li>';
         }
-        $html .= '</ul><h3>Filtrer par lieu</h3><ul>';
+        $html .= '</ul></div><div class ="filtersLieu"><ul>';
         foreach ($lieux as $lieu) {
-            $html .= '<li><a href="index.php?action=program&filter=lieu&value=' . urlencode($lieu) . '">' . htmlspecialchars($lieu) . '</a></li>';
+            $html .= '<li><a href="index.php?action=program&filter=lieu&value=' . urlencode($lieu) . '">' .'<button class="filtersbutton">' . htmlspecialchars($lieu).'</button>' . '</a></li>';
         }
-        $html .= '</ul><h3>Filtrer par genre</h3><ul>';
+        $html .= '</ul></div><div class ="filtersGenre"><ul>';
         foreach ($genres as $genre) {
-            $html .= '<li><a href="index.php?action=program&filter=genre&value=' . urlencode($genre) . '">' . htmlspecialchars($genre) . '</a></li>';
+            $html .= '<li><a href="index.php?action=program&filter=genre&value=' . urlencode($genre) . '">' .'<button class="filtersbutton">'. htmlspecialchars($genre).'</button>' . '</a></li>';
         }
-        $html .= '</ul></div>';
+        $html .= '</ul></div></div>';
 
         // Application des filtres
         $filterType = $_GET['filter'] ?? null;
@@ -73,33 +74,34 @@ class DisplayAllSpectaclesAction extends Action
             $filteredSoirees = $soirees;
         }
 
-        // Rendu des spectacles
         $html .= '<div class="spectacles">';
         $html .= implode('', array_map(function ($soiree) {
             $dateFormatted = strftime('%A %d %B %Y', strtotime($soiree->date));
 
+            $dateRenderer = "<h3>Date : <a href='index.php?action=program&filter=date&value=" . urlencode($soiree->date) . "'>$dateFormatted</a></h3>";
             $lieuRenderer = RendererFactory::getRenderer($soiree->lieu)->render();
-            $dateRenderer = "<h3>Date : $dateFormatted</h3>";
+
             $spectaclesRenderer = implode('', array_map(function ($spectacle) {
-                // Vérifie si le spectacle est déjà en favoris
                 $favorites = unserialize($_COOKIE['favorites'] ?? 'a:0:{}');
                 $isFavorite = in_array($spectacle->id, $favorites ?? [], true);
 
-                // Indique si déjà en favoris ou permet de l'ajouter
                 $favoriteButton = $isFavorite ? '<p>Déjà en favoris</p>' :
                     '<form method="POST" action="">
                         <input type="hidden" name="spectacle_id" value="' . htmlspecialchars((string)$spectacle->id) . '">
                         <button type="submit">Ajouter aux favoris</button>
                     </form> ';
 
-                $redirection = "<a href='index.php?action=soiree&idspectacle=$spectacle->id'> Aller voir les autres spectacles de cette soriee</a>";
+                $genreLink = "<a href='index.php?action=program&filter=genre&value=" . urlencode($spectacle->style) . "'>" . htmlspecialchars($spectacle->style) . "</a>";
 
-                return RendererFactory::getRenderer($spectacle)->render() . $favoriteButton .$redirection;
+                $redirection = "<a href='index.php?action=soiree&idspectacle=$spectacle->id'>Voir les autres spectacles de cette soirée</a>";
+
+                return RendererFactory::getRenderer($spectacle)->render() . "<p>Genre : $genreLink</p>" . $favoriteButton . $redirection;
             }, $soiree->spectacles));
 
             return $dateRenderer . $lieuRenderer . $spectaclesRenderer;
         }, $filteredSoirees));
         $html .= '</div>';
+
 
         return $html;
     }
