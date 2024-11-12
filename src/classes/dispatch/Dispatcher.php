@@ -3,7 +3,8 @@ declare(strict_types=1);
 
 namespace nrv\nancy\dispatch;
 
-use nrv\nancy\action\AddSpec2Soiree;
+use nrv\nancy\action\AddSpec2SoireeAction;
+use nrv\nancy\action\AnnulerSpectacleAction;
 use nrv\nancy\action\CreerSoireeAction;
 use nrv\nancy\action\CreerSpectacleAction;
 use nrv\nancy\action\DefaultAction;
@@ -36,7 +37,10 @@ class Dispatcher
                 $action = new CreerSpectacleAction();
                 break;
             case "addSpec2Soiree":
-                $action = new AddSpec2Soiree();
+                $action = new AddSpec2SoireeAction();
+                break;
+            case "annulerSpec" :
+                $action = new AnnulerSpectacleAction();
                 break;
             default :
                 $action = new DefaultAction();

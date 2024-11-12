@@ -7,7 +7,7 @@ use nrv\nancy\exception\AuthnException;
 use nrv\nancy\auth\AuthnProvider;
 use nrv\nancy\repository\NrvRepository;
 
-class AddSpec2Soiree extends Action{
+class AddSpec2SoireeAction extends Action{
 
     public function execute(): string
     {
