@@ -58,6 +58,9 @@ class Dispatcher
             case "adminpage":
                 $action = new MenuAdmin();
                 break;
+            case "creerCompte":
+                $action = new creeCompte();
+                break;
             default :
                 $action = new DefaultAction();
                 break;

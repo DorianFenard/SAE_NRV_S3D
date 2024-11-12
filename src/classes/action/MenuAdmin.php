@@ -8,11 +8,11 @@ class MenuAdmin extends Action{
     {
         $res = <<<HTML
         <ul>
-            <li><a href="" >Créer un spectacle</li>
-            <li><a href="" >Créer une soirée</li>
-            <li><a href="" >Associer un spectacle à une soirée</li>
-            <li><a href="" >Annuler un spectacle</li>
-            <li><a href="" >Créer un compte staff</li>
+            <li><a href="index.php?action=creerSpectacle" >Créer un spectacle</li>
+            <li><a href="index.php?action=creerSoiree" >Créer une soirée</li>
+            <li><a href="index.php?action=addSpec2Soiree" >Associer un spectacle à une soirée</li>
+            <li><a href="index.php?action=annulerSpec" >Annuler un spectacle</li>
+            <li><a href="index.php?action=creerCompte" >Créer un compte staff</li>
         </ul>
         HTML;
         return $res;
