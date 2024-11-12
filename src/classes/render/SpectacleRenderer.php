@@ -32,9 +32,20 @@ class SpectacleRenderer implements Renderer {
             }
             $html .= "</div>";
         }
-        
+
         if ($this->spectacle->urlVideo) {
-            $html .= "<p>Vidéo : <a href='" .$this->spectacle->urlVideo . "'>Voir la vidéo</a></p>";
+            if (strpos($this->spectacle->urlVideo, 'youtube.com') !== false || strpos($this->spectacle->urlVideo, 'youtu.be') !== false) {
+                $videoId = '';
+                if (preg_match('/v=([^&]+)/', $this->spectacle->urlVideo, $matches)) {
+                    $videoId = $matches[1];
+                }
+                if ($videoId) {
+                    $embedUrl = "https://www.youtube.com/embed/" . $videoId;
+                    $html .= "<div class='video'>
+                        <iframe width='600' height='400' src='" . $embedUrl . "' frameborder='0' allowfullscreen></iframe>
+                      </div>";
+                }
+            }
         }
         
         $html .= "<p>Horaire prévisionnel : " . $this->spectacle->horairePrevisionnel . "</p>";

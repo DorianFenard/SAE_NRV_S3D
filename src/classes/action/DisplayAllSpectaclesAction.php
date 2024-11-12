@@ -11,19 +11,17 @@ class DisplayAllSpectaclesAction extends Action
     public function execute(): string
     {
         setlocale(LC_TIME, 'fr_FR.UTF-8', 'fr_FR', 'fr');
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
 
-        // Gestion de l'ajout aux favoris
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['spectacle_id'])) {
             $spectacleId = (int) $_POST['spectacle_id'];
-            $_SESSION['favorites'] = $_SESSION['favorites'] ?? [];
-            if (!in_array($spectacleId, $_SESSION['favorites'], true)) {
-                $_SESSION['favorites'][] = $spectacleId;
+
+            $favorites = isset($_COOKIE['favorites']) ? unserialize($_COOKIE['favorites']) : [];
+
+            if (!in_array($spectacleId, $favorites, true)) {
+                $favorites[] = $spectacleId;
+                setcookie('favorites', serialize($favorites), time() + (60*60*24 * 30), "/");
             }
         }
-
 
         $repo = NrvRepository::getInstance();
         $soirees = $repo->getAllSoiree();
@@ -39,7 +37,6 @@ class DisplayAllSpectaclesAction extends Action
             }
         }
 
-        // Générer les filtres
         $html = '<div class="filters">';
         $html .= '<h3>Filtrer par date</h3><ul>';
         foreach ($dates as $dateValue => $dateDisplay) {
@@ -84,10 +81,11 @@ class DisplayAllSpectaclesAction extends Action
             $lieuRenderer = RendererFactory::getRenderer($soiree->lieu)->render();
             $dateRenderer = "<h3>Date : $dateFormatted</h3>";
             $spectaclesRenderer = implode('', array_map(function ($spectacle) {
+                // Vérifie si le spectacle est déjà en favoris
+                $favorites = unserialize($_COOKIE['favorites'] ?? 'a:0:{}');
+                $isFavorite = in_array($spectacle->id, $favorites ?? [], true);
 
-                //Vérifie si le spectacle est déjà en favoris
-                $isFavorite = in_array($spectacle->id, $_SESSION['favorites'] ?? [], true);
-                //Indique si déjà en favoris ou permet de l'ajouter
+                // Indique si déjà en favoris ou permet de l'ajouter
                 $favoriteButton = $isFavorite ? '<p>Déjà en favoris</p>' :
                     '<form method="POST" action="">
                         <input type="hidden" name="spectacle_id" value="' . htmlspecialchars((string)$spectacle->id) . '">
