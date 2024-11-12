@@ -90,9 +90,11 @@ class DisplayAllSpectaclesAction extends Action
                     '<form method="POST" action="">
                         <input type="hidden" name="spectacle_id" value="' . htmlspecialchars((string)$spectacle->id) . '">
                         <button type="submit">Ajouter aux favoris</button>
-                    </form>';
+                    </form> ';
 
-                return RendererFactory::getRenderer($spectacle)->render() . $favoriteButton;
+                $redirection = "<a href='index.php?action=soiree&idspectacle=$spectacle->id'> Aller voir les autres spectacles de cette soriee</a>";
+
+                return RendererFactory::getRenderer($spectacle)->render() . $favoriteButton .$redirection;
             }, $soiree->spectacles));
 
             return $dateRenderer . $lieuRenderer . $spectaclesRenderer;
