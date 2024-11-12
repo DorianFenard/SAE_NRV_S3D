@@ -94,7 +94,7 @@ body{
     font-size: 1rem;
 }
 
-.login-box, .create-acc-box {
+.login-box, .create-acc-box, .admin-menu {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -104,7 +104,7 @@ body{
     width: 98%;
 }
 
-.login-form, .create-acc-form {
+.login-form, .create-acc-form, .admin-action {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -141,7 +141,7 @@ body{
     margin: 0 auto;
 }
 
-.login-text, .create-acc-text {
+.login-text, .create-acc-text, .admin-menu-header {
     color: aliceblue;
     margin: 0 auto 5%;
 }
@@ -286,4 +286,28 @@ body{
 
 .UnSpectacle:hover{
     background-color: darkgrey;
+}
+
+.admin-action-list{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: aliceblue 2px solid;
+    border-radius: 10px;
+    background-color : rgb(22, 13, 8);
+    height: 15rem;
+    width: 25rem;
+    margin: auto;
+}
+
+.admin-link{
+    color : white;
+    font-size: 1.25rem;
+    line-height: 2rem;
+}
+
+.admin-menu-header{
+    margin-top:5%;
+    margin-bottom: 0;
+    text-decoration: underline;
 }

@@ -13,13 +13,18 @@ class MenuAdmin extends Action{
         if (isset($_SESSION['role']) && $_SESSION['role'] === 100) {
 
             $res = <<<HTML
-        <ul>
-            <li><a href="index.php?action=creerSpectacle" >Créer un spectacle</li>
-            <li><a href="index.php?action=creerSoiree" >Créer une soirée</li>
-            <li><a href="index.php?action=addSpec2Soiree" >Associer un spectacle à une soirée</li>
-            <li><a href="index.php?action=annulerSpec" >Annuler un spectacle</li>
-            <li><a href="index.php?action=creerCompte" >Créer un compte staff</li>
-        </ul>
+        <div class="admin-menu">
+            <div class="admin-action">
+                <h1 class="admin-menu-header">Action administrateur : </h1>
+                <ul class="admin-action-list">
+                    <li class="admin-element"><a class="admin-link" href="index.php?action=creerSpectacle" >Créer un spectacle</li>
+                    <li class="admin-element"><a class="admin-link" href="index.php?action=creerSoiree" >Créer une soirée</li>
+                    <li class="admin-element"><a class="admin-link" href="index.php?action=addSpec2Soiree" >Associer un spectacle à une soirée</li>
+                    <li class="admin-element"><a class="admin-link" href="index.php?action=annulerSpec" >Annuler un spectacle</li>
+                    <li class="admin-element"><a class="admin-link" href="index.php?action=creerCompte" >Créer un compte staff</li>
+                </ul>
+            </div>
+        </div>
         HTML;
             return $res;
         } else {

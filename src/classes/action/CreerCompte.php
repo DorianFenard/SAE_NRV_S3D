@@ -30,7 +30,6 @@ class CreerCompte extends Action{
                              <a class="create-acc-home-button" href="?action=default">retourner à l'accueil</a>
                         </form>             
                     </div>
-                        
                     HTML;
                 }else{
                     $email = $_POST['email'];
