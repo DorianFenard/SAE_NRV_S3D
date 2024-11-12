@@ -74,33 +74,34 @@ class DisplayAllSpectaclesAction extends Action
             $filteredSoirees = $soirees;
         }
 
-        // Rendu des spectacles
         $html .= '<div class="spectacles">';
         $html .= implode('', array_map(function ($soiree) {
             $dateFormatted = strftime('%A %d %B %Y', strtotime($soiree->date));
 
+            $dateRenderer = "<h3>Date : <a href='index.php?action=program&filter=date&value=" . urlencode($soiree->date) . "'>$dateFormatted</a></h3>";
             $lieuRenderer = RendererFactory::getRenderer($soiree->lieu)->render();
-            $dateRenderer = "<h3>Date : $dateFormatted</h3>";
+
             $spectaclesRenderer = implode('', array_map(function ($spectacle) {
-                // Vérifie si le spectacle est déjà en favoris
                 $favorites = unserialize($_COOKIE['favorites'] ?? 'a:0:{}');
                 $isFavorite = in_array($spectacle->id, $favorites ?? [], true);
 
-                // Indique si déjà en favoris ou permet de l'ajouter
                 $favoriteButton = $isFavorite ? '<p>Déjà en favoris</p>' :
                     '<form method="POST" action="">
                         <input type="hidden" name="spectacle_id" value="' . htmlspecialchars((string)$spectacle->id) . '">
                         <button type="submit">Ajouter aux favoris</button>
                     </form> ';
 
-                $redirection = "<a href='index.php?action=soiree&idspectacle=$spectacle->id'> Aller voir les autres spectacles de cette soriee</a>";
+                $genreLink = "<a href='index.php?action=program&filter=genre&value=" . urlencode($spectacle->style) . "'>" . htmlspecialchars($spectacle->style) . "</a>";
 
-                return RendererFactory::getRenderer($spectacle)->render() . $favoriteButton .$redirection;
+                $redirection = "<a href='index.php?action=soiree&idspectacle=$spectacle->id'>Voir les autres spectacles de cette soirée</a>";
+
+                return RendererFactory::getRenderer($spectacle)->render() . "<p>Genre : $genreLink</p>" . $favoriteButton . $redirection;
             }, $soiree->spectacles));
 
             return $dateRenderer . $lieuRenderer . $spectaclesRenderer;
         }, $filteredSoirees));
         $html .= '</div>';
+
 
         return $html;
     }

@@ -190,4 +190,12 @@ class NrvRepository {
         $succes = $stmt->execute();
         return $succes;
     }
+
+    public function changerAnnulation(int $idspec, bool $nouvBool) : bool{
+        $stmt = $this->pdo->prepare("UPDATE spectacle SET est_annule = ? WHERE id_spectacle = ?");
+        $stmt->bindParam(1, $nouvBool);
+        $stmt->bindParam(2, $idspec);
+        $succes = $stmt->execute();
+        return $succes;
+    }
 }
