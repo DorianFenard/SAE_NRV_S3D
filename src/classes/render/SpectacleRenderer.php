@@ -24,7 +24,7 @@ class SpectacleRenderer implements Renderer {
         
         
         $html .= "<p>Description : " . $this->spectacle->description . "</p>";
-        
+        $html .="<p>Duree du spectacle en minutes : ". $this->spectacle->duree."</p>";
         if (!empty($this->spectacle->images)) {
             $html .= "<div class='images'>";
             foreach ($this->spectacle->images as $image) {

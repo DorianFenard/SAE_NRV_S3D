@@ -12,9 +12,10 @@ class Soiree {
     private string $date;
     private string $horaireDebut;
     private Lieu $lieu;
-    private array $spectacles; 
+    private array $spectacles;
+    private int $tarif;
 
-    public function __construct(int $id,string $nom, string $thematique, string $date, string $horaireDebut, Lieu $lieu, array $spectacles) {
+    public function __construct(int $id,string $nom, string $thematique, string $date, string $horaireDebut, Lieu $lieu, array $spectacles,int $tarif) {
         $this->id = $id;
         $this->nom = $nom;
         $this->thematique = $thematique;
@@ -22,6 +23,7 @@ class Soiree {
         $this->horaireDebut = $horaireDebut;
         $this->lieu = $lieu;
         $this->spectacles = $spectacles;
+        $this->tarif = $tarif;
     }
 
     public function __get(string $property) {

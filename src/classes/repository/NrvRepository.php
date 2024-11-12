@@ -49,7 +49,7 @@ class NrvRepository {
             $lieu = $this->getLieuId((int) $soiree['id_soiree']);
             $spectacles = $this->getSpectacleSoiree((int) $soiree['id_soiree']);
             $array[] = new Soiree((int) $soiree['id_soiree'], $soiree['nom_soiree'], $soiree['thematique'], $soiree['date'], $soiree['horaire_debut'], $lieu,
-            $spectacles);
+            $spectacles,intval($soiree['tarif']));
         }
         return $array;
     }
@@ -63,13 +63,13 @@ class NrvRepository {
             $artistes = $this->getArtisteSpectacle((int) $spectacle['id_spectacle']);
             $array[] = new Spectacle((int) $spectacle['id_spectacle'], $spectacle['nom_spectacle'], $artistes,
                 $spectacle['description'], $images, $spectacle['url_video'], $spectacle['horaire_previsionnel'],
-                $spectacle['style'], boolval($spectacle['est_annule']) );
+                $spectacle['style'], boolval($spectacle['est_annule']),intval($spectacle['duree']) );
         }
         return $array;
     }
 
     public function getSpectacleSoiree(int $idSoiree) : array{
-        $stmt = $this->pdo->prepare("Select spectacle.id_spectacle,nom_spectacle,style,description,horaire_previsionnel,url_video,est_annule from spectacle inner join soiree2spectacle on spectacle.id_spectacle = soiree2spectacle.id_spectacle where id_soiree = ? ORDER by horaire_previsionnel");
+        $stmt = $this->pdo->prepare("Select spectacle.id_spectacle,nom_spectacle,style,description,horaire_previsionnel,url_video,est_annule,duree from spectacle inner join soiree2spectacle on spectacle.id_spectacle = soiree2spectacle.id_spectacle where id_soiree = ? ORDER by horaire_previsionnel");
         $stmt->execute([$idSoiree]);
         $fetch = $stmt->fetchAll();
         foreach ($fetch as $spec){
@@ -77,7 +77,7 @@ class NrvRepository {
             $artistes = $this->getArtisteSpectacle((int) $spec['id_spectacle']);
             $array[] = new Spectacle((int) $spec['id_spectacle'], $spec['nom_spectacle'], $artistes,
                 $spec['description'], $images, $spec['url_video'], $spec['horaire_previsionnel'],
-                $spec['style'], boolval($spec['est_annule']) );
+                $spec['style'], boolval($spec['est_annule']),intval($spec['duree']));
         }
         return $array;
     }

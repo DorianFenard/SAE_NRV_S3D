@@ -14,8 +14,9 @@ class Spectacle
     private string $horairePrevisionnel;
     private string $style;
     private bool $estAnnule;
+    private int $duree;
 
-    public function __construct(int $id, string $titre, array $artistes, string $description, array $images, ?string $urlVideo, string $horairePrevisionnel, string $style, bool $estAnnule)
+    public function __construct(int $id, string $titre, array $artistes, string $description, array $images, ?string $urlVideo, string $horairePrevisionnel, string $style, bool $estAnnule,int $duree)
     {
         if(isset($url)){
             $url ="";
@@ -29,6 +30,7 @@ class Spectacle
         $this->horairePrevisionnel = $horairePrevisionnel;
         $this->style = $style;
         $this->estAnnule = $estAnnule;
+        $this->duree = $duree;
     }
 
     public function annuler(): void
