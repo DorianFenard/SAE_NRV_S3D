@@ -165,6 +165,19 @@ class NrvRepository {
         return (int) $this->pdo->lastInsertId();
     }
 
-
-
+    public function getPassword(string $email) : string {
+        $stmt = $this->pdo->prepare("SELECT password_hash FROM user WHERE email = ?");
+        $stmt->bindParam(1, $email);
+        $stmt->execute();
+        $result = $stmt->fetch();
+        return $result['password_hash'];
+    }
+    
+    public function addSpec2Soiree(int $idSpec, int $idSoiree) : bool{
+        $stmt = $this->pdo->prepare("INSERT INTO soiree2spectacle VALUES (? , ?)");
+        $stmt->bindParam(1, $idSoiree);
+        $stmt->bindParam(2, $idSpec);
+        $succes = $stmt->execute();
+        return $succes;
+    }
 }
