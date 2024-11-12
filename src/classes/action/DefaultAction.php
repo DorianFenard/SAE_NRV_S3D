@@ -11,9 +11,13 @@ class DefaultAction extends Action
             session_start();
         }
 
+
         $loginButton = isset($_SESSION['user'])
             ? '<a class="login-button" href="?action=logout">SE DÉCONNECTER</a>'
             : '<a class="login-button" href="?action=login">SE CONNECTER</a>';
+        $adminButton = isset($_SESSION['role']) && $_SESSION['role'] === 100
+            ? '<a class="admin-button" href="?action=adminpage">ADMIN</a>'
+            : '';
 
         $res = <<<HTML
             <header class="home-header">
@@ -23,8 +27,9 @@ class DefaultAction extends Action
                 <div class="menu">
                     <a class="list-button" href="?action=list">MA LISTE</a>
                     <a class="program-button" href="?action=program">PROGRAMME</a>
-                    <a class="admin-button" href="?action=adminpage">ADMIN</a>
+                    $adminButton
                     $loginButton
+                 
                 </div>
             </header>
         HTML;
