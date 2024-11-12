@@ -20,6 +20,7 @@ class NrvRepository {
     private function __construct(array $conf) {
         $this->pdo = new \PDO($conf['dsn'], $conf['user'], $conf['pass'],
             [\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION]);
+        $this->pdo->exec("SET NAMES 'utf8'");
     }
     public static function getInstance(){
         if (is_null(self::$instance)) {
