@@ -156,4 +156,52 @@ body{
     color: aliceblue;
 }
 
+.filtre{
 
+}
+
+.buttonfiltre{
+    display: flex;
+    flex-direction:row ;
+    gap: 40px;
+    justify-content: space-around;
+}
+
+.buttonfiltre li{
+    list-style: none;
+}
+
+.buttonfiltre li button{
+    font-size: 2em;
+    background: black;
+    border-radius: 10px;
+    border: 2px solid white;
+    width: 250px;
+    height: 50px;
+    color: white;
+    transition: background-color 0.8s ease;
+}
+.buttonfiltre li button:hover{
+    background: white;
+    color: black;
+}
+
+.spectacles{
+    display: none;
+    gap: 15px;
+    text-align: center;
+}
+
+.toggleCheckbox:checked ~ .spectacles{
+    display: flex;
+    flex-direction: row;
+}
+
+.toggleButton {
+    cursor: pointer;
+    padding: 10px;
+    background-color: lightgray;
+    border: 1px solid #ccc;
+    display: inline-block;
+    margin-bottom: 10px;
+}
