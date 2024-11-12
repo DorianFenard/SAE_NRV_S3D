@@ -20,7 +20,7 @@ class SoireeRenderer implements Renderer {
         $html .= "<p>Lieu de la soirée : " .  $this->soiree->lieu->nom . "</p>";
         $html .= "<p>Tarif de la soirée : ".$this->soiree->tarif . "</p>";
         $html .= "<p>Spectacles :</p>";
-        $html .= "<div class='spectacles'>";
+        $html .= "<div class='soireespectacles'>";
         foreach($this->soiree->spectacles as $spectacle) {
             $render = RendererFactory::getRenderer($spectacle);
             $html .=  $render->render() ;

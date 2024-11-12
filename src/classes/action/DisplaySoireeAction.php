@@ -20,12 +20,14 @@ class DisplaySoireeAction extends Action{
                         <a class="program-button" href="?action=program">PROGRAMME</a>'.
             $loginButton.'              
                     </div> </header>';
+
         if(isset($_GET['idspectacle'])){
             $idspectacle = $_GET['idspectacle'];
             $bd = NrvRepository::getInstance();
             $soiree = $bd->getSoireeSpectacle($idspectacle);
-
+            $string .= "<div class =soiree_spectacle>";
             $string .= RendererFactory::getRenderer($soiree)->render();
+            $string .= "</div>";
         }
         return $string;
     }

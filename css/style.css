@@ -263,12 +263,32 @@ body{
 #toggleButtonGenre:checked ~ .filtersLieu {
     display: none;
 }
-.spectacles{
+
+.spectacles,.spectacles-favoris{
     display: flex;
     flex-wrap: wrap;
     width: calc(100% - 10px);
     justify-content: center; /* Centre horizontalement */
     align-items: center;
+}
+.spectacles-favoris >div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid white;
+    border-radius: 10px;
+    margin: 10px;
+    height: auto;
+    width: min-content;
+    padding: 10px;
+}
+.spectacles-favoris >div:hover{
+    background-color: darkgrey;
+}
+
+.soiree_spectacle{
+
 }
 
 .UnSpectacle{
