@@ -36,13 +36,16 @@ class DisplayAllSpectaclesAction extends Action
                 $genres[$spectacle->style] = $spectacle->style;
             }
         }
+        $loginButton = isset($_SESSION['user'])
+            ? '<a class="login-button" href="?action=logout">SE DÉCONNECTER</a>'
+            : '<a class="login-button" href="?action=login">SE CONNECTER</a>';
 
         $html = '<header class="program-header"><a class="home" href="?action=default">
                         <img class="program-icon" src="./images/icone.png" alt="NRV">
                     </a> <div class="menu">
                         <a class="list-button" href="?action=list">MA LISTE</a>
-                        <a class="program-button" href="?action=program">PROGRAMME</a>
-                        <a class="login-button" href="?action=login">SE CONNECTER</a>               
+                        <a class="program-button" href="?action=program">PROGRAMME</a>'.
+                        $loginButton.'              
                     </div>
                     </header>
                     <div class="filters">';
@@ -100,9 +103,10 @@ class DisplayAllSpectaclesAction extends Action
                     </form> ';
 
                 $genreLink = "<a href='index.php?action=program&filter=genre&value=" . urlencode($spectacle->style) . "'>" . htmlspecialchars($spectacle->style) . "</a>";
+                $affichersoiree = "<a href='index.php?action=soiree&idspectacle=$spectacle->id' >Afficher les autres spectacles de la meme soirée</a>";
 
 
-                return RendererFactory::getRenderer($spectacle)->render() . "<p>Genre : $genreLink</p>" . $favoriteButton . "</div> </a>" ;
+                return RendererFactory::getRenderer($spectacle)->render() . "<p>Genre : $genreLink</p>" . $favoriteButton . $affichersoiree ."</div>"  ;
             }, $soiree->spectacles));
 
             return $dateRenderer . $lieuRenderer . $spectaclesRenderer;
