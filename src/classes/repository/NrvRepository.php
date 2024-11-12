@@ -81,6 +81,15 @@ class NrvRepository {
         }
         return $array;
     }
+    public function getSoireeSpectacle(int $idspectacle){
+        $stmt = $this->pdo->prepare("Select soiree.id_soiree,nom_soiree,thematique,date,horaire_debut,tarif from soiree2spectacle inner join soiree on soiree2spectacle.id_soiree = soiree.id_soiree where id_spectacle = ? ;");
+        $stmt->execute([$idspectacle]);
+        $fetch = $stmt->fetch();
+        $lieu = $this->getLieuId((intval($fetch['id_soiree'])));
+        $spectacles = $this->getSpectacleSoiree(intval($fetch['id_soiree']));
+        $soiree = new Soiree(intval($fetch['id_soiree']),$fetch['nom_soiree'],$fetch['thematique'],$fetch['date'],$fetch['horaire_debut'],$lieu,$spectacles,intval($fetch['tarif']));
+        return $soiree;
+    }
 
     public function getLieuId(int $idsoiree) : Lieu{
         $stmt = $this->pdo->prepare("Select * from Lieu INNER JOIN soiree2lieu ON lieu.id_lieu = soiree2lieu.id_lieu where id_soiree = ?");

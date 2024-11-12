@@ -8,6 +8,7 @@ use nrv\nancy\action\CreerSoireeAction;
 use nrv\nancy\action\CreerSpectacleAction;
 use nrv\nancy\action\DefaultAction;
 use nrv\nancy\action\DisplayAllSpectaclesAction;
+use nrv\nancy\action\DisplaySoireeAction;
 use nrv\nancy\action\LoginAction;
 use nrv\nancy\action\FavorisAction;
 
@@ -41,6 +42,9 @@ class Dispatcher
                 break;
             case "list":
                 $action = new FavorisAction();
+                break;
+            case "soiree":
+                $action = new DisplaySoireeAction();
                 break;
             default :
                 $action = new DefaultAction();
