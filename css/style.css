@@ -356,3 +356,13 @@ a{
     margin-right : auto;
     margin-bottom:0.5rem;
 }
+
+.nav-footer {
+    border-top: grey 2px solid;
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 3rem 6rem;
+    margin-top: 2rem;
+}

@@ -53,11 +53,17 @@ class DisplayAllSpectaclesAction extends Action
                          $adminButton.
                         $loginButton .'              
                     </div>
-                    </header>
-                    <div class="filters">';
+                    </header>';
         $html .= '
-  <input type="checkbox" id="toggleButtonDate" class="toggle-button">
-   <button>Filtrer par date</button> <input type="checkbox" id="toggleButtonLieu" class="toggle-button"> <button>Filtrer par lieu</button> <input type="checkbox" id="toggleButtonGenre" class="toggle-button"> <button>Filtrer par genre</button>  <div class ="filtersDate"><ul>';
+                <div class="filters">
+                    <input type="checkbox" id="toggleButtonDate" class="toggle-button">
+                        <button>Filtrer par date</button> 
+                    <input type="checkbox" id="toggleButtonLieu" class="toggle-button"> 
+                        <button>Filtrer par lieu</button> 
+                    <input type="checkbox" id="toggleButtonGenre" class="toggle-button"> 
+                        <button>Filtrer par genre</button>  
+                <div class ="filtersDate">
+                    <ul>';
 
         foreach ($dates as $dateValue => $dateDisplay) {
             $html .= '<li><a href="index.php?action=program&filter=date&value=' . urlencode($dateValue) . '">' . '<button class="filtersbutton">'. $dateValue .'</button>'. '</a></li>';
@@ -119,6 +125,6 @@ class DisplayAllSpectaclesAction extends Action
         }, $filteredSoirees));
 
 
-        return $html;
+        return $html.'</div>';
     }
 }

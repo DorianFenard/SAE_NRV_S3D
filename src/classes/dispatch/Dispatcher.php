@@ -72,6 +72,13 @@ class Dispatcher
 
     private function renderPage(string $html)
     {
+        $loginButton = isset($_SESSION['user'])
+            ? '<a href="?action=logout">SE DÉCONNECTER</a>'
+            : '<a href="?action=login">SE CONNECTER</a>';
+        $adminButton = isset($_SESSION['role']) && $_SESSION['role'] === 100
+            ? '<a href="?action=adminpage">ADMIN</a>'
+            : '';
+
         echo <<<HTML
                 <!DOCTYPE html>
                 <html lang="fr">
@@ -82,6 +89,14 @@ class Dispatcher
                 </head>
                 <body>
                     $html
+                    <footer>
+                        <div class="nav-footer">
+                            <a href="?action=default">ACCUEIL</a>
+                            <a href="?action=program">PROGRAMME</a>
+                            <a href="?action=list">FAVORIS</a>
+                            $loginButton
+                            $adminButton
+                    </footer>
                 </body>
                 </html>
                 HTML;
