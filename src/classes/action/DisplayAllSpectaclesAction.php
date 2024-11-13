@@ -13,13 +13,13 @@ class DisplayAllSpectaclesAction extends Action
         setlocale(LC_TIME, 'fr_FR.UTF-8', 'fr_FR', 'fr');
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['spectacle_id'])) {
-            $spectacleId = (int)$_POST['spectacle_id'];
+            $spectacleId = (int) $_POST['spectacle_id'];
 
             $favorites = isset($_COOKIE['favorites']) ? unserialize($_COOKIE['favorites']) : [];
 
             if (!in_array($spectacleId, $favorites, true)) {
                 $favorites[] = $spectacleId;
-                setcookie('favorites', serialize($favorites), time() + (60 * 60 * 24 * 30), "/");
+                setcookie('favorites', serialize($favorites), time() + (60*60*24 * 30), "/");
             }
         }
 
@@ -55,31 +55,39 @@ class DisplayAllSpectaclesAction extends Action
         $adminButton = isset($_SESSION['role']) && $_SESSION['role'] === 100
             ? '<a class="admin-button" href="?action=adminpage">ADMIN</a>'
             : '';
-        $html = '<header class="program-header"><a class="home" href="?action=default">
+        $html = '<header class="program-header">
+                    <a class="home" href="?action=default">
                         <img class="program-icon" src="./images/icone.png" alt="NRV">
-                    </a> <div class="menu">
-                        <a class="list-button" href="?action=">Acceuil</a>
+                    </a> 
+                    <div class="menu">
+                        <a class="list-button" href="?action=">ACCUEIL</a>
                         <a class="list-button" href="?action=list">MA LISTE</a>
-                        <a class="program-button" href="?action=program">PROGRAMME</a>' .
-            $adminButton .
-            $loginButton . '              
+                        <a class="program-button" href="?action=program">PROGRAMME</a>'.
+                         $adminButton.
+                        $loginButton .'              
                     </div>
-                    </header>
-                    <div class="filters">';
+                    </header>';
         $html .= '
-  <input type="checkbox" id="toggleButtonDate" class="toggle-button">
-   <button>Filtrer par date</button> <input type="checkbox" id="toggleButtonLieu" class="toggle-button"> <button>Filtrer par lieu</button> <input type="checkbox" id="toggleButtonGenre" class="toggle-button"> <button>Filtrer par genre</button>  <div class ="filtersDate"><ul>';
+                <div class="filters">
+                    <input type="checkbox" id="toggleButtonDate" class="toggle-button">
+                        <button>Filtrer par date</button> 
+                    <input type="checkbox" id="toggleButtonLieu" class="toggle-button"> 
+                        <button>Filtrer par lieu</button> 
+                    <input type="checkbox" id="toggleButtonGenre" class="toggle-button"> 
+                        <button>Filtrer par genre</button>  
+                <div class ="filtersDate">
+                    <ul>';
 
         foreach ($dates as $dateValue => $dateDisplay) {
-            $html .= '<li><a href="index.php?action=program&filter=date&value=' . urlencode($dateValue) . '">' . '<button class="filtersbutton">' . $dateValue . '</button>' . '</a></li>';
+            $html .= '<li><a href="index.php?action=program&filter=date&value=' . urlencode($dateValue) . '">' . '<button class="filtersbutton">'. $dateValue .'</button>'. '</a></li>';
         }
         $html .= '</ul></div><div class ="filtersLieu"><ul>';
         foreach ($lieux as $lieu) {
-            $html .= '<li><a href="index.php?action=program&filter=lieu&value=' . urlencode($lieu) . '">' . '<button class="filtersbutton">' . htmlspecialchars($lieu) . '</button>' . '</a></li>';
+            $html .= '<li><a href="index.php?action=program&filter=lieu&value=' . urlencode($lieu) . '">' .'<button class="filtersbutton">' . htmlspecialchars($lieu).'</button>' . '</a></li>';
         }
         $html .= '</ul></div><div class ="filtersGenre"><ul>';
         foreach ($genres as $genre) {
-            $html .= '<li><a href="index.php?action=program&filter=genre&value=' . urlencode($genre) . '">' . '<button class="filtersbutton">' . htmlspecialchars($genre) . '</button>' . '</a></li>';
+            $html .= '<li><a href="index.php?action=program&filter=genre&value=' . urlencode($genre) . '">' .'<button class="filtersbutton">'. htmlspecialchars($genre).'</button>' . '</a></li>';
         }
         $html .= '</ul></div></div>';
 
@@ -158,6 +166,6 @@ class DisplayAllSpectaclesAction extends Action
         $html .= '</div>';
 
 
-        return $html;
+        return $html.'</div>';
     }
 }

@@ -53,7 +53,7 @@ class AddSpec2SoireeAction extends Action
                 <h1 class="admin-text">Association Soirée/Spectacle</h1>
                 $selecSpec
                 $selecSoir
-                <input class="admin-element" ttype="submit" value="Ajouter spectacle" name="ajouterSpec">
+                <input class="admin-element" type="submit" value="Ajouter spectacle" name="ajouterSpec">
                 </form>
                 </div>
                 HTML;
