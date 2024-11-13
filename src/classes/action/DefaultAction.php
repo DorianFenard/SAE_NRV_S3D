@@ -37,10 +37,12 @@ class DefaultAction extends Action
             </header>
             <div class="display-home">
                 <h2 class="home-sous-titre">À vos agendas, rêveurs et noctambules ! Le Festival NRV débarque à Nancy dès le 10 décembre pour vous 
-                emmener dans un tourbillon de spectacles déjantés et de folies artistiques !</h2>';
+                emmener dans un tourbillon de spectacles déjantés et de folies artistiques !</h2>
+                <div class="display-home-spectacles">';
+
                 foreach ($listeLieuSpectacles as $spectacle){
                     $res.=RendererFactory::getRenderer($spectacle['spectacle'])->render();
                 }
-        return $res.'</div>';
+        return $res.'</div></div>';
     }
 }
