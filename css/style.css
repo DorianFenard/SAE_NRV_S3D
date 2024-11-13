@@ -70,6 +70,20 @@ a{
     z-index: -1;
 }
 
+.display-home {
+    margin-top: 60rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    justify-content: center;
+}
+
+.home-sous-titre {
+    margin: 0 10%;
+    text-align: center;
+    font-size: 2rem;
+}
+
 .menu {
     position: absolute;
     display: flex;
@@ -365,4 +379,8 @@ a{
     justify-content: space-between;
     padding: 3rem 6rem;
     margin-top: 2rem;
+}
+
+footer a {
+    text-decoration: none;
 }
