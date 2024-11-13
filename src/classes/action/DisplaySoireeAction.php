@@ -13,9 +13,9 @@ class DisplaySoireeAction extends Action{
             ? '<a class="login-button" href="?action=logout">SE DÉCONNECTER</a>'
             : '<a class="login-button" href="?action=login">SE CONNECTER</a>';
 
-        $string = '<header class="program-header"><a class="home" href="?action=default">
-                        <img class="program-icon" src="./images/icone.png" alt="NRV">
-                    </a> <div class="menu">
+        $string = '<header class="program-header">
+                       <div class="menu">
+                        <a class="list-button" href="?action=">Acceuil</a>
                         <a class="list-button" href="?action=list">MA LISTE</a>
                         <a class="program-button" href="?action=program">PROGRAMME</a>'.
             $loginButton.'              

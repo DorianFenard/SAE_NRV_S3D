@@ -48,6 +48,9 @@ class NrvRepository {
         foreach ($fetch as $soiree){
             $lieu = $this->getLieuId((int) $soiree['id_soiree']);
             $spectacles = $this->getSpectacleSoiree((int) $soiree['id_soiree']);
+            if(!$spectacles){
+                $spectacles = [];
+            }
             $array[] = new Soiree((int) $soiree['id_soiree'], $soiree['nom_soiree'], $soiree['thematique'], $soiree['date'], $soiree['horaire_debut'], $lieu,
             $spectacles,intval($soiree['tarif']));
         }
@@ -72,6 +75,7 @@ class NrvRepository {
         $stmt = $this->pdo->prepare("Select spectacle.id_spectacle,nom_spectacle,style,description,horaire_previsionnel,url_video,est_annule,duree from spectacle inner join soiree2spectacle on spectacle.id_spectacle = soiree2spectacle.id_spectacle where id_soiree = ? ORDER by horaire_previsionnel");
         $stmt->execute([$idSoiree]);
         $fetch = $stmt->fetchAll();
+        $array = [];
         foreach ($fetch as $spec){
             $images = $this->getImagesSpectacle((int) $spec['id_spectacle']);
             $artistes = $this->getArtisteSpectacle((int) $spec['id_spectacle']);
@@ -96,9 +100,26 @@ class NrvRepository {
         $stmt->bindParam(1, $idsoiree);
         $stmt->execute();
         $lieu = $stmt->fetch();
-        $images = $this->getAllImageFromLieu((int) $lieu['id_lieu']);
-        return new Lieu((int) $lieu['id_lieu'], $lieu['nom_lieu'], $lieu['adresse'], (int) $lieu['places_assises'],
-            (int) $lieu['places_debout'], $images);
+        if(!$lieu){
+            $idlieu = 0;
+            $nom = "";
+            $adresse ="";
+            $nbplacesassises = 0;
+            $nbplacesdebout =0;
+        }else{
+            $idlieu = (int) $lieu['id_lieu'];
+            $nom = $lieu['nom_lieu'];
+            $adresse = $lieu['adresse'];
+            $nbplacesassises = (int) $lieu['places_assises'];
+            $nbplacesdebout =(int) $lieu['places_debout'];
+
+        }
+        $images = $this->getAllImageFromLieu($idlieu);
+        if(!$images){
+            $images = [];
+        }
+        return new Lieu($idlieu, $nom,$adresse,$nbplacesassises ,
+            $nbplacesdebout , $images);
     }
 
     public function getImagesSpectacle(int $idspectacle) : array{
@@ -143,7 +164,7 @@ class NrvRepository {
         $stmt->execute();
 
         $result = $stmt->fetchAll();
-
+        $array = [];
         foreach ($result as $img) {
             $array[] = new Image((int) $img['id_image'], $img['nom_image']);
         }
