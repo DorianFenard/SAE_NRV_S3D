@@ -36,6 +36,9 @@ class CreerSpectacleAction extends Action {
 
                 <label class="admin-element" for="description">Description</label>
                 <input class="admin-element" type="text" name="description" id="description" required>
+                
+                <label class="admin-element" for="duree">Durée (minutes)</label>
+                <input class="admin-element" type="number" name="duree" id="duree" required>
 
                 <label class="admin-element" for="url">URL vidéo</label>
                 <input class="admin-element" type="url" name="url" id="url" required>
@@ -57,9 +60,10 @@ class CreerSpectacleAction extends Action {
                 $url = filter_var($_POST['url'] ?? '', FILTER_SANITIZE_URL);
                 $horaire = filter_var($_POST['horaire'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
                 $style = filter_var($_POST['style'] ?? 'Indefini', FILTER_SANITIZE_SPECIAL_CHARS);
+                (int) $duree = filter_var($_POST['duree'] ?? 0, FILTER_SANITIZE_NUMBER_INT);
 
                 try {
-                    $idSpectacle = NrvRepository::getInstance()->ajouterSpectacle($nom, $description, $url, $horaire, $style);
+                    $idSpectacle = NrvRepository::getInstance()->ajouterSpectacle($nom, $description, $duree, $url, $horaire, $style);
                     $res = "Spectacle créé avec succès. ID du spectacle : " . $idSpectacle;
                 } catch (\Exception $e) {
                     $res = "Erreur lors de la création du spectacle : " . $e->getMessage();
