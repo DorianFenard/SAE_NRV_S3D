@@ -42,10 +42,12 @@ class DisplayAllSpectaclesAction extends Action
         $adminButton = isset($_SESSION['role']) && $_SESSION['role'] === 100
             ? '<a class="admin-button" href="?action=adminpage">ADMIN</a>'
             : '';
-        $html = '<header class="program-header"><a class="home" href="?action=default">
+        $html = '<header class="program-header">
+                    <a class="home" href="?action=default">
                         <img class="program-icon" src="./images/icone.png" alt="NRV">
-                    </a> <div class="menu">
-                        <a class="list-button" href="?action=">Acceuil</a>
+                    </a> 
+                    <div class="menu">
+                        <a class="list-button" href="?action=">ACCUEIL</a>
                         <a class="list-button" href="?action=list">MA LISTE</a>
                         <a class="program-button" href="?action=program">PROGRAMME</a>'.
                          $adminButton.
