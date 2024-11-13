@@ -8,28 +8,50 @@ use nrv\nancy\auth\AuthnProvider;
 
 class CreerSpectacleAction extends Action {
     public function execute(): string {
+        $loginButton = isset($_SESSION['user'])
+            ? '<a class="login-button" href="?action=logout">SE DÉCONNECTER</a>'
+            : '<a class="login-button" href="?action=login">SE CONNECTER</a>';
+        $adminButton = isset($_SESSION['role']) && $_SESSION['role'] === 100
+            ? '<a class="admin-button" href="?action=adminpage">ADMIN</a>'
+            : '';
+        $header = '<header class="program-header"><a class="home" href="?action=default">
+                        <img class="program-icon" src="./images/icone.png" alt="NRV">
+                    </a> <div class="menu">
+                        <a class="list-button" href="?action=list">MA LISTE</a>
+                        <a class="program-button" href="?action=program">PROGRAMME</a>'.
+            $adminButton.
+            $loginButton .'              
+                    </div>
+                    </header>
+                    <div class="filters">';
         try{
             AuthnProvider::getSignedInUser();
             if ($this->http_method === "GET") {
                 $res = <<<HTML
-            <form action="?action=creerSpectacle" method="post">
-                <label for="nom">Nom</label>
-                <input type="text" name="nom" id="nom" required>
+            <div class="admin-box">
+            <form class="admin-form" action="?action=creerSpectacle" method="post">
+            <h1 class="admin-text"> Création d'un spectacle</h1>;
+                <label class="admin-element" for="nom">Nom</label>
+                <input class="admin-element" type="text" name="nom" id="nom" required>
 
-                <label for="description">Description</label>
-                <input type="text" name="description" id="description" required>
+                <label class="admin-element" for="description">Description</label>
+                <input class="admin-element" type="text" name="description" id="description" required>
+                
+                <label class="admin-element" for="duree">Durée (minutes)</label>
+                <input class="admin-element" type="number" name="duree" id="duree" required>
 
-                <label for="url">URL vidéo</label>
-                <input type="url" name="url" id="url" required>
+                <label class="admin-element" for="url">URL vidéo</label>
+                <input class="admin-element" type="url" name="url" id="url" required>
 
-                <label for="horaire">Horaire prévisionnel</label>
-                <input type="time" name="horaire" id="horaire" required>
+                <label class="admin-element" for="horaire">Horaire prévisionnel</label>
+                <input class="admin-element" type="time" name="horaire" id="horaire" required>
 
-                <label for="style">Style</label>
-                <input type="text" name="style" id="style" required>
+                <label class="admin-element" for="style">Style</label>
+                <input class="admin-element" type="text" name="style" id="style" required>
 
-                <input type="submit" value="Créer Spectacle">
+                <input class="admin-element" type="submit" value="Créer Spectacle">
             </form>
+            </div>
             HTML;
 
             } else {
@@ -38,9 +60,10 @@ class CreerSpectacleAction extends Action {
                 $url = filter_var($_POST['url'] ?? '', FILTER_SANITIZE_URL);
                 $horaire = filter_var($_POST['horaire'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
                 $style = filter_var($_POST['style'] ?? 'Indefini', FILTER_SANITIZE_SPECIAL_CHARS);
+                (int) $duree = filter_var($_POST['duree'] ?? 0, FILTER_SANITIZE_NUMBER_INT);
 
                 try {
-                    $idSpectacle = NrvRepository::getInstance()->ajouterSpectacle($nom, $description, $url, $horaire, $style);
+                    $idSpectacle = NrvRepository::getInstance()->ajouterSpectacle($nom, $description, $duree, $url, $horaire, $style);
                     $res = "Spectacle créé avec succès. ID du spectacle : " . $idSpectacle;
                 } catch (\Exception $e) {
                     $res = "Erreur lors de la création du spectacle : " . $e->getMessage();
@@ -49,6 +72,7 @@ class CreerSpectacleAction extends Action {
         }catch(AuthnException $e){
             $res = "<p> Vous n'avez pas l'autorisation </p>";
         }
-        return $res;
+        $html = $header . $res;
+        return $html;
     }
 }

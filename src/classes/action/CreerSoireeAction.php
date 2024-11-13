@@ -9,17 +9,36 @@ use nrv\nancy\repository\NrvRepository;
 class CreerSoireeAction extends Action{
     public function execute(): string
     {
+        $loginButton = isset($_SESSION['user'])
+            ? '<a class="login-button" href="?action=logout">SE DÉCONNECTER</a>'
+            : '<a class="login-button" href="?action=login">SE CONNECTER</a>';
+        $adminButton = isset($_SESSION['role']) && $_SESSION['role'] === 100
+            ? '<a class="admin-button" href="?action=adminpage">ADMIN</a>'
+            : '';
+        $header = '<header class="program-header"><a class="home" href="?action=default">
+                        <img class="program-icon" src="./images/icone.png" alt="NRV">
+                    </a> <div class="menu">
+                        <a class="list-button" href="?action=list">MA LISTE</a>
+                        <a class="program-button" href="?action=program">PROGRAMME</a>'.
+            $adminButton.
+            $loginButton .'              
+                    </div>
+                    </header>
+                    <div class="filters">';
         try{
             AuthnProvider::getSignedInUser();
             if($this->http_method == "GET"){
                 $res = <<<HTML
-                <form action="?action=creerSoiree" method="post">
-                    <input type="text" name="nomSoiree" placeholder="Nom soirée" required>
-                    <input type="text" name="themeSoiree" placeholder="Thématique" required>
-                    <input type="date" name="dateSoiree" required>
-                    <input type="time" name="heureSoiree" required>
-                    <input type="submit" value="Créer soirée" name="creerSoiree">
+                <div class="admin-box">
+                <form class="admin-form" action="?action=creerSoiree" method="post">
+                <h1 class="admin-text">Création d'une soirée</h1>
+                    <input class="admin-element" type="text" name="nomSoiree" placeholder="Nom soirée" required>
+                    <input class="admin-element" type="text" name="themeSoiree" placeholder="Thématique" required>
+                    <input class="admin-element" type="date" name="dateSoiree" required>
+                    <input class="admin-element" type="time" name="heureSoiree" required>
+                    <input class="admin-element" type="submit" value="Créer soirée" name="creerSoiree">
                 </form>
+                </div>
                 HTML;
 
             }else{
@@ -33,6 +52,6 @@ class CreerSoireeAction extends Action{
         }catch(AuthnException $e){
             $res = "<p>Vous n'avez pas les autorisations requises.</p>";
         }
-        return $res;
+        return $header . $res;
     }
 }

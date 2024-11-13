@@ -9,14 +9,30 @@ class CreerCompte extends Action{
 
     public function execute(): string
     {
+        $loginButton = isset($_SESSION['user'])
+            ? '<a class="login-button" href="?action=logout">SE DÉCONNECTER</a>'
+            : '<a class="login-button" href="?action=login">SE CONNECTER</a>';
+        $adminButton = isset($_SESSION['role']) && $_SESSION['role'] === 100
+            ? '<a class="admin-button" href="?action=adminpage">ADMIN</a>'
+            : '';
+        $header = '<header class="program-header"><a class="home" href="?action=default">
+                        <img class="program-icon" src="./images/icone.png" alt="NRV">
+                    </a> <div class="menu">
+                        <a class="list-button" href="?action=list">MA LISTE</a>
+                        <a class="program-button" href="?action=program">PROGRAMME</a>'.
+            $adminButton.
+            $loginButton .'              
+                    </div>
+                    </header>
+                    <div class="filters">';
         try{
             AuthnProvider::getSignedInUser();
             if(isset($_SESSION['role']) && $_SESSION['role'] === 100){
                 if($this->http_method === "GET"){
                     $res = <<<HTML
-                    <div class="create-acc-box">
-                        <form class="create-acc-form" method="POST" action="?action=creerCompte">
-                            <h1 class="create-acc-text">CONNEXION</h1>
+                    <div class="admin-box">
+                        <form class="admin-form" method="POST" action="?action=creerCompte">
+                            <h1 class="admin-text">CREATION</h1>
                             <label for="email"></label>
                             <input type="texte" id="email" name="email" placeholder="email" required>
                             <br>
@@ -50,6 +66,6 @@ class CreerCompte extends Action{
         }catch (AuthnException $e){
             $res = "<p> Vous n'avez pas l'autorisation requise</p>";
         }
-        return $res;
+        return $header . $res;
     }
 }
