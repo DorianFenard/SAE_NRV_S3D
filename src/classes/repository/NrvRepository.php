@@ -96,7 +96,7 @@ class NrvRepository {
     }
 
     public function getLieuId(int $idsoiree) : Lieu{
-        $stmt = $this->pdo->prepare("Select * from Lieu INNER JOIN soiree2lieu ON lieu.id_lieu = soiree2lieu.id_lieu where id_soiree = ?");
+        $stmt = $this->pdo->prepare("Select * from lieu INNER JOIN soiree2lieu ON lieu.id_lieu = soiree2lieu.id_lieu where id_soiree = ?");
         $stmt->bindParam(1, $idsoiree);
         $stmt->execute();
         $lieu = $stmt->fetch();
