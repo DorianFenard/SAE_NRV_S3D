@@ -163,6 +163,17 @@ class DisplayAllSpectaclesAction extends Action
             $html.='<h2> Date : '.strftime("%A %d %B %Y",strtotime($spectacle['date'])) .'</h2>';
             $html.=RendererFactory::getRenderer($spectacle['lieu'])->render();
             $html.=RendererFactory::getRenderer($spectacle['spectacle'])->render();
+
+            $favoris = unserialize($_COOKIE['favorites'] ?? 'a:0:{}');
+
+            $isFavorite = in_array($spectacle['spectacle']->id, $favoris ?? [], true);
+            //Indique si déjà en favoris ou permet de l'ajouter
+            $favoriteButton = $isFavorite ? '<p>Déjà en favoris</p>' :
+                '<form method="POST" action="">
+                        <input type="hidden" name="spectacle_id" value="' . htmlspecialchars((string)$spectacle['spectacle']->id) . '">
+                        <button type="submit">Ajouter aux favoris</button>
+                    </form>';
+            $html .=$favoriteButton;
         }
         $html .= '</div>';
 
