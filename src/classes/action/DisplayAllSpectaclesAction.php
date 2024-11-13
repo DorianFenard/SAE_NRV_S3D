@@ -41,11 +41,13 @@ class DisplayAllSpectaclesAction extends Action
 
         foreach ($soirees as $soiree) {
             $lieu = $soiree->lieu;
+            $date = $soiree->date;
             // Ajoute chaque couple "lieu-spectacle" à la liste
             foreach ($soiree->spectacles as $spectacle) {
                 $listeLieuSpectacles[] = [
                     'lieu' => $lieu,
-                    'spectacle' => $spectacle
+                    'spectacle' => $spectacle,
+                    'date' => $date
                 ];
             }
         }
@@ -157,7 +159,6 @@ class DisplayAllSpectaclesAction extends Action
         }
 
         $html .= '<div class="spectacles">';
-
         foreach ($listeLieuSpectacles as $spectacle){
             $html.='<h2> Date : '.strftime("%A %d %B %Y",strtotime($spectacle['date'])) .'</h2>';
             $html.=RendererFactory::getRenderer($spectacle['lieu'])->render();
