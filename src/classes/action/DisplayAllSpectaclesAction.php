@@ -23,7 +23,14 @@ class DisplayAllSpectaclesAction extends Action
             }
         }
 
-        $listeLieuSpectacles = $this::getListLieuSpectacle();
+        $listeLieuSpectacles = self::getListLieuSpectacle();
+        $soirees =self::getSoirees();
+        $infoSoirees = self::getInfoSoiree($soirees);
+
+        $dates = $infoSoirees['dates'];
+        $lieux = $infoSoirees['lieux'];
+        $genres = $infoSoirees['genres'];
+
         $loginButton = isset($_SESSION['user'])
             ? '<a class="login-button" href="?action=logout">SE DÉCONNECTER</a>'
             : '<a class="login-button" href="?action=login">SE CONNECTER</a>';
@@ -154,14 +161,12 @@ class DisplayAllSpectaclesAction extends Action
         return $html;
     }
 
-    /**
-     * @return array
-     */
-    public static function getListLieuSpectacle(): array
-    {
+    public static function getSoirees(): array {
         $repo = NrvRepository::getInstance();
-        $soirees = $repo->getAllSoiree();
+        return $repo->getAllSoiree();
+    }
 
+    public static function getInfoSoiree(array $soirees): array {
         $dates = [];
         $lieux = [];
         $genres = [];
@@ -172,7 +177,15 @@ class DisplayAllSpectaclesAction extends Action
                 $genres[$spectacle->style] = $spectacle->style;
             }
         }
+        return ['dates' => $dates, 'lieux' => $lieux, 'genres' => $genres];
+    }
 
+    /**
+     * @return array
+     */
+    public static function getListLieuSpectacle(): array
+    {
+        $soirees = self::getSoirees();
         $listeLieuSpectacles = [];
 
         foreach ($soirees as $soiree) {
