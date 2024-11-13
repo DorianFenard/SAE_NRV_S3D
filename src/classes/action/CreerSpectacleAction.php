@@ -63,7 +63,7 @@ class CreerSpectacleAction extends Action {
                 (int) $duree = filter_var($_POST['duree'] ?? 0, FILTER_SANITIZE_NUMBER_INT);
 
                 try {
-                    $idSpectacle = NrvRepository::getInstance()->ajouterSpectacle($nom, $description, $duree, $url, $horaire, $style);
+                    $idSpectacle = NrvRepository::getInstance()->ajouterSpectacle($nom, $description, intval($duree), $url, $horaire, $style);
                     $res = "Spectacle créé avec succès. ID du spectacle : " . $idSpectacle;
                 } catch (\Exception $e) {
                     $res = "Erreur lors de la création du spectacle : " . $e->getMessage();

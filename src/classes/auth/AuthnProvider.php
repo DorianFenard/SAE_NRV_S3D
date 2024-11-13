@@ -45,7 +45,7 @@ class AuthnProvider
                 throw new AuthnException("Votre email est invalide");
             }
         } else {
-            throw new AuthnException("Votre mot de passe ne respecte pas les critères");
+            throw new AuthnException("Votre mot de passe ne respecte pas les critères (min 10 caractères, 1 chiffre, un caractère spécial, une minuscule/majuscule). ");
         }
     }
 

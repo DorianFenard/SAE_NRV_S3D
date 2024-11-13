@@ -127,6 +127,7 @@ class NrvRepository {
         $stmt->bindParam(1, $idspectacle);
         $stmt->execute([$idspectacle]);
         $fetch = $stmt->fetchAll();
+        $array = [];
         foreach ($fetch as $image){
             $array[] = new Image((int) $image['id_image'], $image['nom_image']);
         }
@@ -138,6 +139,7 @@ class NrvRepository {
         $stmt->bindParam(1,$idspectacle);
         $stmt->execute();
         $fetch = $stmt->fetchAll();
+        $array = [];
         foreach ($fetch as $artiste){
             $array[] = new Artiste((int) $artiste['id_artiste'], $artiste['nom_artiste']);
         }
@@ -220,7 +222,7 @@ class NrvRepository {
         $succes = $stmt->execute();
         return $succes;
     }
-    public function getRoleByUser(string $email) : string {
+    public function getRoleByUser(string $email) : int {
         $stmt = $this->pdo->prepare("SELECT role FROM user WHERE email = ?");
         $stmt->bindParam(1, $email);
         $stmt->execute();

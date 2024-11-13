@@ -115,7 +115,6 @@ class DisplayAllSpectaclesAction extends Action
 
             return $dateRenderer . $lieuRenderer . $spectaclesRenderer;
         }, $filteredSoirees));
-        $html .= '</div>';
 
 
         return $html;
