@@ -23,34 +23,14 @@ class DisplayAllSpectaclesAction extends Action
             }
         }
 
-        $repo = NrvRepository::getInstance();
-        $soirees = $repo->getAllSoiree();
+        $listeLieuSpectacles = self::getListLieuSpectacle();
+        $soirees =self::getSoirees();
+        $infoSoirees = self::getInfoSoiree($soirees);
 
-        $dates = [];
-        $lieux = [];
-        $genres = [];
-        foreach ($soirees as $soiree) {
-            $dates[$soiree->date] = strftime('%A %d %B %Y', strtotime($soiree->date));
-            $lieux[$soiree->lieu->nom] = $soiree->lieu->nom;
-            foreach ($soiree->spectacles as $spectacle) {
-                $genres[$spectacle->style] = $spectacle->style;
-            }
-        }
+        $dates = $infoSoirees['dates'];
+        $lieux = $infoSoirees['lieux'];
+        $genres = $infoSoirees['genres'];
 
-        $listeLieuSpectacles = [];
-
-        foreach ($soirees as $soiree) {
-            $lieu = $soiree->lieu;
-            $date = $soiree->date;
-            // Ajoute chaque couple "lieu-spectacle" à la liste
-            foreach ($soiree->spectacles as $spectacle) {
-                $listeLieuSpectacles[] = [
-                    'lieu' => $lieu,
-                    'spectacle' => $spectacle,
-                    'date' => $date
-                ];
-            }
-        }
         $loginButton = isset($_SESSION['user'])
             ? '<a class="login-button" href="?action=logout">SE DÉCONNECTER</a>'
             : '<a class="login-button" href="?action=login">SE CONNECTER</a>';
@@ -181,6 +161,48 @@ class DisplayAllSpectaclesAction extends Action
         $html .= '</div>';
 
 
-        return $html.'</div>';
+        return $html;
+    }
+
+    public static function getSoirees(): array {
+        $repo = NrvRepository::getInstance();
+        return $repo->getAllSoiree();
+    }
+
+    public static function getInfoSoiree(array $soirees): array {
+        $dates = [];
+        $lieux = [];
+        $genres = [];
+        foreach ($soirees as $soiree) {
+            $dates[$soiree->date] = strftime('%A %d %B %Y', strtotime($soiree->date));
+            $lieux[$soiree->lieu->nom] = $soiree->lieu->nom;
+            foreach ($soiree->spectacles as $spectacle) {
+                $genres[$spectacle->style] = $spectacle->style;
+            }
+        }
+        return ['dates' => $dates, 'lieux' => $lieux, 'genres' => $genres];
+    }
+
+    /**
+     * @return array
+     */
+    public static function getListLieuSpectacle(): array
+    {
+        $soirees = self::getSoirees();
+        $listeLieuSpectacles = [];
+
+        foreach ($soirees as $soiree) {
+            $lieu = $soiree->lieu;
+            $date = $soiree->date;
+            // Ajoute chaque couple "lieu-spectacle" à la liste
+            foreach ($soiree->spectacles as $spectacle) {
+                $listeLieuSpectacles[] = [
+                    'lieu' => $lieu,
+                    'spectacle' => $spectacle,
+                    'date' => $date
+                ];
+            }
+        }
+        return $listeLieuSpectacles;
     }
 }

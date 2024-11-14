@@ -5,7 +5,7 @@ html {
     padding: 0;
 }
 
-body{
+body {
     margin: 0;
     padding: 0;
     background: rgba(0, 0, 0, 0.91);
@@ -30,17 +30,18 @@ body{
     color: white; /* Changez la couleur pour qu'elle ressorte sur l'images */
     z-index: 1; /* Assure que le texte soit au-dessus de l'images */
 }
-.program-icon{
-        width: 40rem;
-        top: 4rem;
-        left: 4rem;
-        position: absolute;
-        transform: translate(-50%, -50%);/* Centre le texte sur l'images */
-        color: white; /* Changez la couleur pour qu'elle ressorte sur l'images */
-        z-index: -1; /* Assure que le texte soit au-dessus de l'images */
+
+.program-icon {
+    width: 40rem;
+    top: 4rem;
+    left: 4rem;
+    position: absolute;
+    transform: translate(-50%, -50%); /* Centre le texte sur l'images */
+    color: white; /* Changez la couleur pour qu'elle ressorte sur l'images */
+    z-index: -1; /* Assure que le texte soit au-dessus de l'images */
 }
 
-.program-header{
+.program-header {
     position: relative;
     top: 0;
     left: 0;
@@ -51,14 +52,15 @@ body{
 
 }
 
-a{
+a {
     color: aqua;
 }
+
 @media screen and (max-width: 1080px) {
     .home-icon {
         width: 50%;
-        top :3rem;
-        left:3rem;
+        top: 3rem;
+        left: 3rem;
     }
 }
 
@@ -68,6 +70,20 @@ a{
     top: 0;
     left: 0;
     z-index: -1;
+}
+
+.display-home {
+    margin-top: 60rem;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    justify-content: center;
+}
+
+.home-sous-titre {
+    margin: 0 10%;
+    text-align: center;
+    font-size: 2rem;
 }
 
 .menu {
@@ -92,7 +108,7 @@ a{
     text-align: center;
 }
 
-.list-button, .program-button, .admin-button{
+.list-button, .program-button, .admin-button {
     padding: 2%;
     text-decoration: none;
     color: aliceblue;
@@ -104,7 +120,7 @@ a{
     flex-direction: row;
     justify-content: center;
     background-image: url("../images/image-home.jpg");
-    margin: 5% auto;
+    margin: 0 auto;
     height: 53rem;
     width: 98%;
 }
@@ -178,7 +194,8 @@ a{
     text-decoration: none;
     color: aliceblue;
 }
-.buttonfilter button{
+
+.buttonfilter button {
     color: white;
     border: 2px solid white;
     background: black;
@@ -190,16 +207,16 @@ a{
     gap: 10px;
 }
 
-.filters{
-    padding:10px;
+.filters {
+    padding: 10px;
     gap: 10px;
 }
 
-.filters >div{
+.filters > div {
     padding-top: 10px;
 }
 
-.filters > button{
+.filters > button {
     color: white;
     border: 2px solid white;
     background: black;
@@ -211,13 +228,13 @@ a{
     gap: 10px;
 }
 
-.filters > button:hover{
+.filters > button:hover {
     color: black;
     border: 2px solid white;
     background: white;
 }
 
-.filters div ul{
+.filters div ul {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -225,21 +242,21 @@ a{
     list-style: none;
 }
 
-.filtersDate{
+.filtersDate {
     display: none;
 
 }
 
-.filtersLieu{
+.filtersLieu {
     display: none;
 
 }
 
-.filtersGenre{
+.filtersGenre {
     display: none;
 }
 
-.filtersbutton{
+.filtersbutton {
     font-size: 20px;
     border: none;
     color: white;
@@ -248,7 +265,8 @@ a{
     width: auto;
     height: auto;
 }
-.filtersbutton:hover{
+
+.filtersbutton:hover {
     background-color: white;
     color: black;
 }
@@ -269,14 +287,24 @@ a{
     display: none;
 }
 
-.spectacles,.spectacles-favoris{
+.display-home-spectacles {
     display: flex;
     flex-wrap: wrap;
-    width: calc(100% - 10px);
     justify-content: center;
-    align-items: center;
+    margin: 5rem auto;
 }
-.spectacles-favoris >div{
+
+.spectacle {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
+    margin: 2% 5%;
+    text-align: center;
+    padding: 2%;
+}
+
+.spectacles-favoris > div {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -288,7 +316,8 @@ a{
     width: min-content;
     padding: 10px;
 }
-.spectacles-favoris >div:hover{
+
+.spectacles-favoris > div:hover {
     background-color: darkgrey;
 }
 
@@ -305,7 +334,7 @@ a{
     align-items: center;
 }
 
-.soiree_spectacle > .soiree > .soireespectacles >.spectacle{
+.soiree_spectacle > .soiree > .soireespectacles > .spectacle {
     display: flex;
     flex-direction: column;
     border: 2px solid white;
@@ -316,7 +345,7 @@ a{
     padding: 10px;
 }
 
-.UnSpectacle{
+.UnSpectacle {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -329,32 +358,32 @@ a{
     padding: 10px;
 }
 
-.UnSpectacle:hover{
+.UnSpectacle:hover {
     background-color: darkgrey;
 }
 
-.admin-action-list{
+.admin-action-list {
     display: flex;
     flex-direction: column;
     justify-content: center;
     border: aliceblue 2px solid;
     border-radius: 10px;
-    background-color : rgb(22, 13, 8);
+    background-color: rgb(22, 13, 8);
     height: 20rem;
     width: 20rem;
     margin: auto;
 }
 
-.admin-link{
-    color : white;
+.admin-link {
+    color: white;
     font-size: 1.25rem;
     line-height: 1.5rem;
 }
 
-.admin-element{
-    margin-left : auto;
-    margin-right : auto;
-    margin-bottom:0.5rem;
+.admin-element {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0.5rem;
 }
 
 .nav-footer {
@@ -365,4 +394,8 @@ a{
     justify-content: space-between;
     padding: 3rem 6rem;
     margin-top: 2rem;
+}
+
+footer a {
+    text-decoration: none;
 }

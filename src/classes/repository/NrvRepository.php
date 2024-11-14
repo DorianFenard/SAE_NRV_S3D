@@ -227,7 +227,7 @@ class NrvRepository {
         $stmt->bindParam(1, $email);
         $stmt->execute();
         $result = $stmt->fetch();
-        return $result['role'];
+        return (int) $result['role'];
     }
 
     public function userAlreadyExisting(string $email) : bool{
