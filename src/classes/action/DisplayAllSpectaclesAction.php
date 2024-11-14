@@ -11,18 +11,29 @@ class DisplayAllSpectaclesAction extends Action
     public function execute(): string
     {
         setlocale(LC_TIME, 'fr_FR.UTF-8', 'fr_FR', 'fr');
-
+        $i = 0;
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['spectacle_id'])) {
             $spectacleId = (int) $_POST['spectacle_id'];
 
             $favorites = isset($_COOKIE['favorites']) ? unserialize($_COOKIE['favorites']) : [];
-
-            if (!in_array($spectacleId, $favorites, true)) {
-                $favorites[] = $spectacleId;
-                setcookie('favorites', serialize($favorites), time() + (60*60*24 * 30), "/");
+            if(isset($_POST['ajouter'])){
+                $i =1;
+                if (!in_array($spectacleId, $favorites, true)) {
+                    $favorites[] = $spectacleId;
+                    setcookie('favorites', serialize($favorites), time() + (60*60*24 * 30), "/");
+                }
+            }elseif (isset($_POST['retirer'])){
+                $i = 2;
+                if (in_array($spectacleId, $favorites, true)) {
+                    $i =3;
+                    $favorites = array_filter($favorites, function($value) use ($spectacleId) {
+                        return $value !== $spectacleId;
+                    });
+                    setcookie('favorites', serialize($favorites), time() + (60*60*24 * 30), "/");
+                }
             }
         }
-
+    echo $i;
         $listeLieuSpectacles = self::getListLieuSpectacle();
         $soirees =self::getSoirees();
         $infoSoirees = self::getInfoSoiree($soirees);
@@ -148,13 +159,13 @@ class DisplayAllSpectaclesAction extends Action
 
             $isFavorite = in_array($spectacle['spectacle']->id, $favoris ?? [], true);
             //Indique si déjà en favoris ou permet de l'ajouter
-            $favoriteButton = $isFavorite ? '<form method="POST" action="index.php?action=program&rm=vrai">
+            $favoriteButton = $isFavorite ? '<form method="POST" action="index.php?action=program">
                         <input type="hidden" name="spectacle_id" value="' . htmlspecialchars((string)$spectacle['spectacle']->id) . '">
-                        <button type="submit">Retirer des favoris</button>
+                        <button type="submit" name="retirer">Retirer des favoris</button>
                     </form>' :
-                '<form method="POST" action="index.php?action=program&rm=false">
+                '<form method="POST" action="index.php?action=program">
                         <input type="hidden" name="spectacle_id" value="' . htmlspecialchars((string)$spectacle['spectacle']->id) . '">
-                        <button type="submit">Ajouter aux favoris</button>
+                        <button type="submit" name="ajouter">Ajouter aux favoris</button>
                     </form>';
             $html .=$favoriteButton;
         }
