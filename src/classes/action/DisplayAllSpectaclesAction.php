@@ -168,8 +168,11 @@ class DisplayAllSpectaclesAction extends Action
 
             $isFavorite = in_array($spectacle['spectacle']->id, $favoris ?? [], true);
             //Indique si déjà en favoris ou permet de l'ajouter
-            $favoriteButton = $isFavorite ? '<p>Déjà en favoris</p>' :
-                '<form method="POST" action="">
+            $favoriteButton = $isFavorite ? '<form method="POST" action="index.php?action=program&rm=vrai">
+                        <input type="hidden" name="spectacle_id" value="' . htmlspecialchars((string)$spectacle['spectacle']->id) . '">
+                        <button type="submit">Retirer des favoris</button>
+                    </form>' :
+                '<form method="POST" action="index.php?action=program&rm=false">
                         <input type="hidden" name="spectacle_id" value="' . htmlspecialchars((string)$spectacle['spectacle']->id) . '">
                         <button type="submit">Ajouter aux favoris</button>
                     </form>';
