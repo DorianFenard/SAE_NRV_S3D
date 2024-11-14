@@ -316,6 +316,13 @@ a {
     width: min-content;
     padding: 10px;
 }
+.spectacles-favoris{
+    display: flex;
+    flex-wrap: wrap;
+    width: calc(100% - 10px);
+    justify-content: center;
+    align-items: center;
+}
 
 .spectacles-favoris > div:hover {
     background-color: darkgrey;
