@@ -11,21 +11,17 @@ class DisplayAllSpectaclesAction extends Action
     public function execute(): string
     {
         setlocale(LC_TIME, 'fr_FR.UTF-8', 'fr_FR', 'fr');
-        $i = 0;
         if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['spectacle_id'])) {
             $spectacleId = (int) $_POST['spectacle_id'];
 
             $favorites = isset($_COOKIE['favorites']) ? unserialize($_COOKIE['favorites']) : [];
             if(isset($_POST['ajouter'])){
-                $i =1;
                 if (!in_array($spectacleId, $favorites, true)) {
                     $favorites[] = $spectacleId;
                     setcookie('favorites', serialize($favorites), time() + (60*60*24 * 30), "/");
                 }
             }elseif (isset($_POST['retirer'])){
-                $i = 2;
                 if (in_array($spectacleId, $favorites, true)) {
-                    $i =3;
                     $favorites = array_filter($favorites, function($value) use ($spectacleId) {
                         return $value !== $spectacleId;
                     });
@@ -33,7 +29,6 @@ class DisplayAllSpectaclesAction extends Action
                 }
             }
         }
-    echo $i;
         $listeLieuSpectacles = self::getListLieuSpectacle();
         $soirees =self::getSoirees();
         $infoSoirees = self::getInfoSoiree($soirees);
@@ -168,6 +163,7 @@ class DisplayAllSpectaclesAction extends Action
                         <button type="submit" name="ajouter">Ajouter aux favoris</button>
                     </form>';
             $html .=$favoriteButton;
+            $html .= '<a href=index.php?action=soiree&idspectacle='. $spectacle['spectacle']->id .'>Afficher les autres spectacles de meme soiree</a>';
         }
         $html .= '</div>';
 
