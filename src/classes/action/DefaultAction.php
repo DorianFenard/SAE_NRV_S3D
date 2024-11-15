@@ -5,6 +5,10 @@ namespace nrv\nancy\action;
 
 use nrv\nancy\render\RendererFactory;
 
+/**
+ * Action déclenchée par défaut (si rien n'est demandé, ou demande inconnue).
+ * Cette classe génère l'affichage de la page d'accueil
+ */
 class DefaultAction extends Action
 {
     public function execute(): string

@@ -2,6 +2,10 @@
 declare(strict_types=1);
 namespace nrv\nancy\action;
 
+/**
+ * Action déclenchée lorsque l'on clique sur le bouton admin,
+ * elle vérifie si l'utilisateur à l'origine de cette action est bien admin
+ */
 class MenuAdmin extends Action{
 
     public function execute(): string

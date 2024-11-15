@@ -7,6 +7,10 @@ use nrv\nancy\auth\AuthnProvider;
 use nrv\nancy\exception\AuthnException;
 use nrv\nancy\repository\NrvRepository;
 
+/**
+ * Action déclenchée lorsque l'on veut se connecter,
+ * si $http_method != "GET" on affiche le formulaire, sinon on l'exécute
+ */
 class LoginAction extends Action
 {
     /**

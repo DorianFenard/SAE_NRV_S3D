@@ -6,6 +6,11 @@ use nrv\nancy\auth\AuthnProvider;
 use nrv\nancy\exception\AuthnException;
 use nrv\nancy\repository\NrvRepository;
 
+/**
+ * Action déclenchée lorsque l'on veut ajouter une soirée,
+ * si $http_method != "GET" on affiche le formulaire, sinon on l'exécute
+ * elle vérifie si l'utilisateur à l'origine de cette action est bien connecté et est bien admin
+ */
 class CreerSoireeAction extends Action{
     public function execute(): string
     {

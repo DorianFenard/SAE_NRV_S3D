@@ -8,6 +8,10 @@ use nrv\nancy\repository\NrvRepository;
 
 class AnnulerSpectacleAction extends Action {
 
+    /**
+     * Action déclenchée lorsque l'on annule un spectacle,
+     * elle vérifie si l'utilisateur à l'origine de cette action est bien connecté et est bien admin
+     */
     public function execute(): string
     {
         $loginButton = isset($_SESSION['user'])

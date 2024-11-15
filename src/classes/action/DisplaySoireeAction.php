@@ -5,6 +5,9 @@ namespace nrv\nancy\action;
 use nrv\nancy\render\RendererFactory;
 use nrv\nancy\repository\NrvRepository;
 
+/**
+ * Action déclenchée lorsque l'on veut afficher les détails d'une soirée,
+ */
 class DisplaySoireeAction extends Action{
 
     public function execute(): string

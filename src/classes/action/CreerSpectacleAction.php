@@ -6,6 +6,11 @@ use nrv\nancy\exception\AuthnException;
 use nrv\nancy\repository\NrvRepository;
 use nrv\nancy\auth\AuthnProvider;
 
+/**
+ * Action déclenchée lorsque l'on veut ajouter un spectacle,
+ * si $http_method != "GET" on affiche le formulaire, sinon on l'exécute
+ * elle vérifie si l'utilisateur à l'origine de cette action est bien connecté et est bien admin
+ */
 class CreerSpectacleAction extends Action {
     public function execute(): string {
         $loginButton = isset($_SESSION['user'])

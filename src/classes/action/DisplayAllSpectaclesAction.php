@@ -6,6 +6,9 @@ namespace nrv\nancy\action;
 use nrv\nancy\repository\NrvRepository;
 use nrv\nancy\render\RendererFactory;
 
+/**
+ * Action déclenchée lorsque l'on veut afficher l'ensemble des spectacles (bouton programme)
+ */
 class DisplayAllSpectaclesAction extends Action
 {
     public function execute(): string

@@ -5,6 +5,11 @@ namespace nrv\nancy\action;
 use nrv\nancy\auth\AuthnProvider;
 use nrv\nancy\exception\AuthnException;
 
+/**
+ * Action déclenchée lorsque l'on veut ajouter un nouvel utilisateur,
+ * si $http_method != "GET" on affiche le formulaire, sinon on l'exécute
+ * elle vérifie si l'utilisateur à l'origine de cette action est bien connecté et est bien admin
+ */
 class CreerCompte extends Action{
 
     public function execute(): string
