@@ -11,7 +11,7 @@ class CreerSpectacleAction extends Action {
         $loginButton = isset($_SESSION['user'])
             ? '<a class="login-button" href="?action=logout">SE DÉCONNECTER</a>'
             : '<a class="login-button" href="?action=login">SE CONNECTER</a>';
-        $adminButton = isset($_SESSION['role']) && $_SESSION['role'] === 100
+        $adminButton = isset($_SESSION['role']) && $_SESSION['role'] >= 50
             ? '<a class="admin-button" href="?action=adminpage">ADMIN</a>'
             : '';
         $header = '<header class="program-header"><a class="home" href="?action=default">
@@ -31,7 +31,7 @@ class CreerSpectacleAction extends Action {
                 $res = <<<HTML
             <div class="admin-box">
             <form class="admin-form" action="?action=creerSpectacle" method="post">
-            <h1 class="admin-text"> Création d'un spectacle</h1>;
+            <h1 class="admin-text"> Création d'un spectacle</h1>
                 <label class="admin-element" for="nom">Nom</label>
                 <input class="admin-element" type="text" name="nom" id="nom" required>
 
@@ -40,7 +40,6 @@ class CreerSpectacleAction extends Action {
                 
                 <label class="admin-element" for="duree">Durée (minutes)</label>
                 <input class="admin-element" type="number" name="duree" id="duree" required>
-
                 <label class="admin-element" for="url">URL vidéo</label>
                 <input class="admin-element" type="url" name="url" id="url" required>
 
