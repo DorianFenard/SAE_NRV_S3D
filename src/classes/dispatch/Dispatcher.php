@@ -16,15 +16,28 @@ use nrv\nancy\action\LogoutAction;
 use nrv\nancy\action\MenuAdmin;
 use nrv\nancy\action\CreerCompte;
 
+/**
+ * classe permettant d'afficher l'action demandée.
+ */
 class Dispatcher
 {
+    /**
+     * @var string action à appliquer suite à la requête
+     */
     private string $action;
 
+    /**
+     * constructeur du Dispatcher, l'attribut action est instancié avec l'action envoyée dans la requête GET
+     */
     public function __construct()
     {
         $this->action = $_GET['action'] ?? 'default';
     }
 
+    /**
+     * Déclenche le script demandé, le script de la page d'accueil DefaultAction est déclenché si aucune requête GET
+     * n'est reçue.
+     */
     public function run()
     {
         $action = null;
@@ -70,6 +83,10 @@ class Dispatcher
         $this->renderPage($html);
     }
 
+    /**
+     * Effectue le rendu de l'action demandée dans run()
+     * @param string $html corps de la page à afficher, entouré par le header en haut et le footer en bas
+     */
     private function renderPage(string $html)
     {
         $loginButton = isset($_SESSION['user'])
