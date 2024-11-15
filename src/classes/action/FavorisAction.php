@@ -6,8 +6,16 @@ namespace nrv\nancy\action;
 use nrv\nancy\repository\NrvRepository;
 use nrv\nancy\render\RendererFactory;
 
+/**
+ * Action déclenchée lorsque l'on clique sur "Ma Liste",
+ * elle affiche la liste des spectacles ajoutés aux favoris.
+ */
 class FavorisAction extends Action
 {
+    /**
+     * Exécution de l'action générant un affichage
+     * @return string affichage generé par la méthode
+     */
     public function execute(): string
     {
         $favoriteIds = isset($_COOKIE['favorites']) ? unserialize($_COOKIE['favorites']) : [];
