@@ -146,6 +146,7 @@ class DisplayAllSpectaclesAction extends Action
 
         $html .= '<div class="spectacles">';
         foreach ($listeLieuSpectacles as $spectacle){
+            $html.='<div class="display-soiree">';
             $html.='<h2> Date : '.strftime("%A %d %B %Y",strtotime($spectacle['date'])) .'</h2>';
             $html.=RendererFactory::getRenderer($spectacle['lieu'])->render();
             $html.=RendererFactory::getRenderer($spectacle['spectacle'])->render();
@@ -163,7 +164,7 @@ class DisplayAllSpectaclesAction extends Action
                         <button type="submit" name="ajouter">Ajouter aux favoris</button>
                     </form>';
             $html .=$favoriteButton;
-            $html .= '<a href=index.php?action=soiree&idspectacle='. $spectacle['spectacle']->id .'>Afficher les autres spectacles de meme soiree</a>';
+            $html .= '<a href=index.php?action=soiree&idspectacle='. $spectacle['spectacle']->id .'>Afficher les autres spectacles de meme soiree</a></div>';
         }
         $html .= '</div>';
 

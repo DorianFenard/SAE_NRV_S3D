@@ -12,6 +12,11 @@ body {
     color: aliceblue;
 }
 
+hr {
+    width: 100rem;
+    color: rgba(0, 0, 0, 0.3);
+}
+
 .home-header {
     position: absolute;
     top: 0;
@@ -297,59 +302,32 @@ a {
 .spectacle {
     display: flex;
     flex-direction: column;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    border-radius: 15px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
     margin: 2% 5%;
     text-align: center;
     padding: 2%;
 }
 
-.spectacles-favoris > div {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid white;
-    border-radius: 10px;
-    margin: 10px;
-    height: auto;
-    width: min-content;
-    padding: 10px;
-}
-.spectacles-favoris{
+.spectacles {
     display: flex;
     flex-wrap: wrap;
-    width: calc(100% - 10px);
-    justify-content: center;
-    align-items: center;
+    padding: 0;
 }
 
-.spectacles-favoris > div:hover {
-    background-color: darkgrey;
-}
-
-.soiree_spectacle {
-    display: flex;
-    justify-content: center;
-}
-
-.soiree_spectacle > .soiree > .soireespectacles {
-    display: flex;
-    flex-wrap: wrap;
-    width: calc(100% - 10px);
-    justify-content: center;
-    align-items: center;
-}
-
-.soiree_spectacle > .soiree > .soireespectacles > .spectacle {
+.display-soiree {
     display: flex;
     flex-direction: column;
-    border: 2px solid white;
-    border-radius: 10px;
-    margin: 10px;
-    height: auto;
-    width: min-content;
-    padding: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 15px;
+    margin: 2% auto;
+    text-align: center;
+    padding: 2%;
+    width: 40%;
+}
+
+.display-soiree .spectacle {
+    margin: 0;
+    padding: 0;
 }
 
 .UnSpectacle {
