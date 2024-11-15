@@ -40,7 +40,7 @@ class DisplayAllSpectaclesAction extends Action
         $loginButton = isset($_SESSION['user'])
             ? '<a class="login-button" href="?action=logout">SE DÉCONNECTER</a>'
             : '<a class="login-button" href="?action=login">SE CONNECTER</a>';
-        $adminButton = isset($_SESSION['role']) && $_SESSION['role'] === 100
+        $adminButton = isset($_SESSION['role']) && $_SESSION['role'] >= 50
             ? '<a class="admin-button" href="?action=adminpage">ADMIN</a>'
             : '';
         $html = '<header class="program-header">
