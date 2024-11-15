@@ -33,7 +33,7 @@ class SpectacleRenderer implements Renderer
             $html .= "<div class='images'>";
             foreach ($this->spectacle->images as $image) {
                 if (is_file("./images/" . $image->nom))
-                    $html .= "<img src='./images/$image->nom' alt='Image du spectacle' height='400'>";
+                    $html .= "<img src='./images/$image->nom' alt='Image du spectacle' class ='imagesspectacle'>";
                 else
                     $html .= "<p class='pas-image'>PAS D'IMAGE DISPONIBLE</p>";
             }
@@ -50,7 +50,7 @@ class SpectacleRenderer implements Renderer
                 if ($videoId) {
                     $embedUrl = "https://www.youtube.com/embed/" . $videoId;
                     $html .= "<div class='video'>
-                        <iframe width='600' height='400' src='" . $embedUrl . "' frameborder='0' allowfullscreen></iframe>
+                        <iframe  src='" . $embedUrl . "' frameborder='0' allowfullscreen></iframe>
                       </div>";
                 }
             }

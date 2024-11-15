@@ -312,21 +312,22 @@ a {
 .images {
     border-top: 2px solid rgba(255, 255, 255, 0.5);
     border-bottom: 2px solid rgba(255, 255, 255, 0.5);
-    width: 40rem;
+    max-width: 600px;
+    max-height: 400px;
+    width: max-content;
+    height: max-content;
     margin: 10% auto;
     padding: 10% 0;
 }
 
-.images img {
-    border: 1px solid rgba(0, 0, 0, 0.91);
-    border-radius: 25px;
-    width: 100%;
-}
 
 .video {
     border-bottom: 2px solid rgba(255, 255, 255, 0.5);
     padding: 0 0 10% 0;
-    width: 40rem;
+    max-width: 600px;
+    max-height: 400px;
+    width: max-content;
+    height: max-content;
     margin: 0 auto;
 }
 
@@ -430,3 +431,9 @@ a {
 footer a {
     text-decoration: none;
 }
+
+.imagesspectacle{
+    max-height: 600px;
+    max-width: 400px;
+}
+
