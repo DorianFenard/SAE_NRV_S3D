@@ -7,12 +7,18 @@ use nrv\nancy\exception\AuthnException;
 use nrv\nancy\repository\NrvRepository;
 use nrv\nancy\exception\AuthzException;
 
+/**
+ * Classe relative à la gestion des droits pour les différents utilisateurs du site
+ */
 class Authz
 {
 
     /**
-     * @throws AuthnException
-     * @throws AuthzException
+     * vérifie si le rôle de l'utilisateur actuellement connecté correspond à celui passé en paramètre,
+     * si ce n'est pas le cas, la méthode renvoie une erreur.
+     * @param int $roleAttendu rôle demandé à l'utilisateur
+     * @throws AuthzException Erreur si l'utilisateur ne correspond pas au rôle demandé
+     * @throws AuthnException Erreur si personne n'est connecté actuellement renvoyée par getSignedInUser()
      */
     public static function checkRole(int $roleAttendu)
     {
