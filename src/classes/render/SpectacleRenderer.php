@@ -25,13 +25,12 @@ class SpectacleRenderer implements Renderer {
         
         $html .= "<p>Description : " . $this->spectacle->description . "</p>";
         $html .="<p>Duree du spectacle en minutes : ". $this->spectacle->duree."</p>";
-        if (!empty($this->spectacle->images)) {
             $html .= "<div class='images'>";
             foreach ($this->spectacle->images as $image) {
-                $html .= "<img src='" .$image . "' alt='Image du spectacle'>";
+                $html .= "<img src='./images/$image->nom' alt='Image du spectacle'>";
             }
             $html .= "</div>";
-        }
+
 
         if ($this->spectacle->urlVideo) {
             if (strpos($this->spectacle->urlVideo, 'youtube.com') !== false || strpos($this->spectacle->urlVideo, 'youtu.be') !== false) {
