@@ -56,13 +56,14 @@ class DisplayAllSpectaclesAction extends Action
                     </div>
                     </header>';
         $html .= '
-                <div class="filters">
-                    <input type="checkbox" id="toggleButtonDate" class="toggle-button">
-                        <button>Filtrer par date</button> 
-                    <input type="checkbox" id="toggleButtonLieu" class="toggle-button"> 
-                        <button>Filtrer par lieu</button> 
-                    <input type="checkbox" id="toggleButtonGenre" class="toggle-button"> 
-                        <button>Filtrer par genre</button>  
+                <script src="./script/script.js"></script>
+                <div class="filters" xmlns="http://www.w3.org/1999/html">
+                <div class="filter-buttons">
+                    <input type="button" id="toggleButtonDate" class="toggle-button" value="Date" readonly> 
+                    <input type="button" id="toggleButtonLieu" class="toggle-button" value="Lieu" readonly> 
+                    <input type="button" id="toggleButtonGenre" class="toggle-button" value="Genre" readonly>
+                </div>
+                <div class="filter-display">
                 <div class ="filtersDate">
                     <ul>';
 
@@ -77,7 +78,7 @@ class DisplayAllSpectaclesAction extends Action
         foreach ($genres as $genre) {
             $html .= '<li><a href="index.php?action=program&filter=genre&value=' . urlencode($genre) . '">' .'<button class="filtersbutton">'. htmlspecialchars($genre).'</button>' . '</a></li>';
         }
-        $html .= '</ul></div></div>';
+        $html .= '</ul></div></div></div>';
 
         // Application des filtres
         $filterType = $_GET['filter'] ?? null;
@@ -155,16 +156,16 @@ class DisplayAllSpectaclesAction extends Action
 
             $isFavorite = in_array($spectacle['spectacle']->id, $favoris ?? [], true);
             //Indique si déjà en favoris ou permet de l'ajouter
-            $favoriteButton = $isFavorite ? '<form method="POST" action="index.php?action=program">
+            $favoriteButton = $isFavorite ? '<form method="POST" action="index.php?action=program" class="form-boutton-favoris">
                         <input type="hidden" name="spectacle_id" value="' . htmlspecialchars((string)$spectacle['spectacle']->id) . '">
-                        <button type="submit" name="retirer">Retirer des favoris</button>
+                        <button type="submit" name="retirer" class="boutton-favoris">Retirer des favoris</button>
                     </form>' :
-                '<form method="POST" action="index.php?action=program">
+                '<form method="POST" action="index.php?action=program" class="form-boutton-favoris">
                         <input type="hidden" name="spectacle_id" value="' . htmlspecialchars((string)$spectacle['spectacle']->id) . '">
-                        <button type="submit" name="ajouter">Ajouter aux favoris</button>
+                        <button type="submit" name="ajouter" class="boutton-favoris">Ajouter aux favoris</button>
                     </form>';
             $html .=$favoriteButton;
-            $html .= '<a href=index.php?action=soiree&idspectacle='. $spectacle['spectacle']->id .'>Afficher les autres spectacles de meme soiree</a></div>';
+            $html .= '<a href=index.php?action=soiree&idspectacle='. $spectacle['spectacle']->id .' class="afficher-plus-soirees">AFFICHER LES AUTRES SPECTACLES DE MEME SOIREE</a></div>';
         }
         $html .= '</div>';
 

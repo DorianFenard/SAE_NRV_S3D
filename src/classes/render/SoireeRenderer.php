@@ -13,6 +13,7 @@ class SoireeRenderer implements Renderer {
     }
     public function render(): string {
         $html = "<div class='soiree'>";
+        $html .= "<div class='soiree-infos'>";
         $html .= "<h2>Nom de la soirée : " . $this->soiree->nom . "</h2>";
         $html .= "<p>Thème : " . $this->soiree->thematique . "</p>";
         $html .= "<p>Date de la soirée : " . $this->soiree->date . "</p>";
@@ -20,6 +21,7 @@ class SoireeRenderer implements Renderer {
         $html .= "<p>Lieu de la soirée : " .  $this->soiree->lieu->nom . "</p>";
         $html .= "<p>Tarif de la soirée : ".$this->soiree->tarif . "</p>";
         $html .= "<p>Spectacles :</p>";
+        $html .= "</div>";
         $html .= "<div class='soireespectacles'>";
         foreach($this->soiree->spectacles as $spectacle) {
             $render = RendererFactory::getRenderer($spectacle);

@@ -35,10 +35,10 @@ class FavorisAction extends Action
                         <a class="program-button" href="?action=program">PROGRAMME</a>'.
             $adminButton . $loginButton. '              
                     </div>
-                    </header><h2>Mes Spectacles Favoris</h2>';
+                    </header><h2 class="favoris-titre">MES SPECTACLES FAVORIS :</h2>';
 
         if (empty($favoriteIds)) {
-            $html .= '<p>Aucun spectacle en favoris pour le moment.</p>';
+            $html .= '<p class="aucun-favoris">AUCUN SPECTACLE EN FAVORIS POUR LE MOMENT</p>';
             return $html;
         }
 
@@ -47,7 +47,7 @@ class FavorisAction extends Action
 
         $favoriteSpectacles = array_filter($allSpectacles, fn($spectacle) => in_array($spectacle->id, $favoriteIds, true));
 
-        $html .= '<div class="spectacles-favoris">';
+        $html .= '<div class="spectacles">';
         foreach ($favoriteSpectacles as $spectacle) {
             $html .= RendererFactory::getRenderer($spectacle)->render();
         }

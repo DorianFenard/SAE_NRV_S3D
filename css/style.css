@@ -17,6 +17,10 @@ hr {
     color: rgba(0, 0, 0, 0.3);
 }
 
+ul {
+    list-style: none;
+}
+
 .home-header {
     position: absolute;
     top: 0;
@@ -200,96 +204,71 @@ a {
     color: aliceblue;
 }
 
-.buttonfilter button {
-    color: white;
-    border: 2px solid white;
-    background: black;
-    font-size: 30px;
-    border-radius: 10px;
-    width: 20%;
-    height: 50px;
-    transition: background-color 0.5s ease;
-    gap: 10px;
+.error-home-button:hover {
+    color: darkred;
 }
 
 .filters {
-    padding: 10px;
-    gap: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    margin: 1rem 4rem;
 }
 
-.filters > div {
-    padding-top: 10px;
-}
-
-.filters > button {
-    color: white;
-    border: 2px solid white;
-    background: black;
-    font-size: 30px;
-    border-radius: 10px;
-    width: auto;
-    height: 50px;
-    transition: background-color 0.5s ease;
-    gap: 10px;
-}
-
-.filters > button:hover {
-    color: black;
-    border: 2px solid white;
-    background: white;
-}
-
-.filters div ul {
+.filter-display {
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-    gap: 30px;
-    list-style: none;
 }
 
-.filtersDate {
-    display: none;
-
+.toggle-button {
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    font-weight: 900;
 }
 
-.filtersLieu {
-    display: none;
-
+.toggle-button:hover {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
-.filtersGenre {
-    display: none;
+.filtersDate, .filtersLieu, .filtersGenre {
+    display: none; /* Masqué par défaut */
+}
+
+.filtersDate.active, .filtersLieu.active, .filtersGenre.active {
+    display: block; /* Affiché lorsqu'il est actif */
+}
+
+.filtersDate.active ul, .filtersLieu.active ul, .filtersGenre.active ul {
+    display: flex; /* Affiché lorsqu'il est actif */
+    flex-direction: row;
 }
 
 .filtersbutton {
-    font-size: 20px;
+    background: rgba(0, 0, 0, 0.1);
+    color: aliceblue;
+    font-size: 1rem;
     border: none;
-    color: white;
-    border-bottom: 2px solid white;
-    background-color: black;
-    width: auto;
-    height: auto;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+    margin: 1rem;
+    padding: 0.5rem;
 }
 
-.filtersbutton:hover {
-    background-color: white;
-    color: black;
-}
-
-#toggleButtonDate:checked ~ .filtersDate,
-#toggleButtonLieu:checked ~ .filtersLieu,
-#toggleButtonGenre:checked ~ .filtersGenre {
+.soiree {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: center;
 }
 
-#toggleButtonDate:checked ~ .filtersLieu,
-#toggleButtonDate:checked ~ .filtersGenre,
-#toggleButtonLieu:checked ~ .filtersGenre,
-#toggleButtonLieu:checked ~ .filtersDate,
-#toggleButtonGenre:checked ~ .filtersDate,
-#toggleButtonGenre:checked ~ .filtersLieu {
-    display: none;
+.soiree-infos {
+    margin: 0 auto;
+    padding: 3rem 0;
+    text-align: center;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+    width: 40%;
 }
 
 .display-home-spectacles {
@@ -302,7 +281,7 @@ a {
 .spectacle {
     display: flex;
     flex-direction: column;
-    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+    border-bottom: 5px solid rgba(255, 255, 255, 0.5);
     margin: 2% 5%;
     text-align: center;
     padding: 2%;
@@ -330,6 +309,31 @@ a {
     padding: 0;
 }
 
+.images {
+    border-top: 2px solid rgba(255, 255, 255, 0.5);
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+    width: 40rem;
+    margin: 10% auto;
+    padding: 10% 0;
+}
+
+.images img {
+    border: 1px solid rgba(0, 0, 0, 0.91);
+    border-radius: 25px;
+    width: 100%;
+}
+
+.video {
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+    padding: 0 0 10% 0;
+    width: 40rem;
+    margin: 0 auto;
+}
+
+.horaires-spectacle {
+    margin: 2% auto;
+}
+
 .UnSpectacle {
     display: flex;
     flex-direction: column;
@@ -351,24 +355,66 @@ a {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    text-align: justify;
     border: aliceblue 2px solid;
     border-radius: 10px;
     background-color: rgb(22, 13, 8);
     height: 20rem;
     width: 20rem;
     margin: auto;
+    padding: 0;
 }
 
 .admin-link {
     color: white;
     font-size: 1.25rem;
     line-height: 1.5rem;
+    text-decoration: none;
+}
+
+.admin-link:hover {
+    color: #066969;
 }
 
 .admin-element {
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 0.5rem;
+}
+
+.form-boutton-favoris {
+    margin: 5%;
+}
+
+.boutton-favoris {
+    background: #066969;
+    font-size: 1rem;
+    color: aliceblue;
+    border: #012323 2px solid;
+    border-radius: 15px;
+    padding: 1rem;
+}
+
+.boutton-favoris:hover {
+    background: rgba(6, 105, 105, 0.5);
+}
+
+.afficher-plus-soirees {
+    text-decoration: none;
+}
+
+.afficher-plus-soirees:hover {
+    opacity: 0.6;
+}
+
+.favoris-titre {
+    margin: 0 3rem;
+}
+
+.aucun-favoris {
+    text-align: center;
+    font-size: 1rem;
+    margin: 22rem 0;
 }
 
 .nav-footer {

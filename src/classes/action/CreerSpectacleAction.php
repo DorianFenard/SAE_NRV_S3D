@@ -17,6 +17,7 @@ class CreerSpectacleAction extends Action {
         $header = '<header class="program-header"><a class="home" href="?action=default">
                         <img class="program-icon" src="./images/icone.png" alt="NRV">
                     </a> <div class="menu">
+                        <a class="list-button" href="DefaultAction.php">ACCUEIL</a>
                         <a class="list-button" href="?action=list">MA LISTE</a>
                         <a class="program-button" href="?action=program">PROGRAMME</a>'.
             $adminButton.
@@ -64,9 +65,9 @@ class CreerSpectacleAction extends Action {
 
                 try {
                     $idSpectacle = NrvRepository::getInstance()->ajouterSpectacle($nom, $description, intval($duree), $url, $horaire, $style);
-                    $res = "Spectacle créé avec succès. ID du spectacle : " . $idSpectacle;
+                    $res = "<p>Spectacle créé avec succès. ID du spectacle : " . $idSpectacle."</p>";
                 } catch (\Exception $e) {
-                    $res = "Erreur lors de la création du spectacle : " . $e->getMessage();
+                    $res = "<p>Erreur lors de la création du spectacle : " . $e->getMessage() . "</p>";
                 }
             }
         }catch(AuthnException $e){
